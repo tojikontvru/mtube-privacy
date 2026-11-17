@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0e11">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="Условия использования приложения M Tube: правила пользования, права и обязанности, ограничение ответственности.">
+<title>Условия использования — M Tube</title>
+<style>
+  * { box-sizing: border-box; }
+  :root {
+    --bg: #0b0e11;
+    --bg-soft: #12171d;
+    --card: #151b22;
+    --card-2: #1a212a;
+    --stroke: #242e39;
+    --text: #e8eef5;
+    --muted: #93a6b8;
+    --accent: #ff4d4f;
+    --accent-2: #ff8a5c;
+    --accent-soft: rgba(255, 77, 79, .12);
+    --radius: 18px;
+    --radius-sm: 12px;
+    --max: 780px;
+    --pad: 20px;
+    --base: 16px;
+  }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    background:
+      radial-gradient(1100px 520px at 15% -10%, rgba(255, 77, 79, .16), transparent 60%),
+      radial-gradient(900px 480px at 100% 0%, rgba(255, 138, 92, .10), transparent 55%),
+      var(--bg);
+    color: var(--text);
+    font: var(--base)/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--accent-2);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+
+  /* ── Шапка ───────────────────────────────────────────── */
+  header.hero { padding: 34px 0 10px; }
+  .brand {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 8px 16px 8px 10px;
+    background: linear-gradient(135deg, rgba(255,77,79,.16), rgba(255,138,92,.08));
+    border: 1px solid rgba(255, 77, 79, .28);
+    border-radius: 999px;
+  }
+  .logo {
+    width: 38px; height: 38px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, #ff4d4f, #ff7a45);
+    box-shadow: 0 6px 18px rgba(255, 77, 79, .35);
+    flex: none;
+  }
+  .logo svg { display: block; }
+  .brand-name { font-weight: 800; letter-spacing: .2px; font-size: 17px; }
+  h1 {
+    font-size: clamp(28px, 6vw, 44px);
+    line-height: 1.15;
+    margin: 22px 0 10px;
+    letter-spacing: -.5px;
+  }
+  .lead { color: var(--muted); font-size: clamp(15px, 2.4vw, 18px); margin: 0 0 6px; }
+  .updated {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 14px; padding: 7px 14px;
+    background: var(--bg-soft);
+    border: 1px solid var(--stroke);
+    border-radius: 999px;
+    color: var(--muted); font-size: 14px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #35d07f; box-shadow: 0 0 10px #35d07f88; flex: none; }
+
+  /* ── Быстрая навигация ───────────────────────────────── */
+  nav.toc {
+    display: flex; gap: 10px; overflow-x: auto;
+    padding: 18px 0 6px;
+    scrollbar-width: none;
+  }
+  nav.toc::-webkit-scrollbar { display: none; }
+  .chip {
+    flex: none; padding: 9px 16px;
+    background: var(--card); border: 1px solid var(--stroke);
+    border-radius: 999px; color: var(--text);
+    font-size: 14.5px; white-space: nowrap;
+    transition: border-color .2s, background .2s, transform .15s;
+  }
+  .chip:hover { border-color: rgba(255,77,79,.5); background: var(--accent-soft); text-decoration: none; }
+  .chip:active { transform: scale(.97); }
+
+  /* ── Карточка-итог ───────────────────────────────────── */
+  .summary {
+    margin: 20px 0 6px;
+    padding: 18px 20px;
+    background: linear-gradient(135deg, rgba(255,77,79,.14), rgba(255,138,92,.06));
+    border: 1px solid rgba(255, 77, 79, .30);
+    border-radius: var(--radius);
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .summary .ico { flex: none; margin-top: 2px; }
+  .summary p { margin: 0; }
+
+  /* ── Секции ──────────────────────────────────────────── */
+  main { padding: 8px 0 40px; }
+  section {
+    margin-top: 18px;
+    padding: 20px 22px;
+    background: var(--card);
+    border: 1px solid var(--stroke);
+    border-radius: var(--radius);
+  }
+  section h2 {
+    display: flex; align-items: center; gap: 12px;
+    font-size: clamp(18px, 3vw, 22px);
+    line-height: 1.3;
+    margin: 0 0 10px;
+    letter-spacing: -.2px;
+  }
+  .ico {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: grid; place-items: center; flex: none;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  section p, section li { margin: 9px 0; }
+  section p:first-of-type { margin-top: 0; }
+  ul { padding-left: 20px; }
+  li::marker { color: var(--accent); }
+  strong { color: #fff; font-weight: 700; }
+  .note {
+    padding: 12px 14px;
+    background: var(--card-2);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .grid2 { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .perm {
+    padding: 14px 16px;
+    background: var(--card-2);
+    border: 1px solid var(--stroke);
+    border-radius: var(--radius-sm);
+  }
+  .perm b { display: block; margin-bottom: 3px; color: #fff; }
+  .perm span { color: var(--muted); font-size: 15px; }
+
+  /* ── Подвал ──────────────────────────────────────────── */
+  footer {
+    padding: 26px 0 46px;
+    color: var(--muted); font-size: 14.5px;
+    text-align: center;
+  }
+  footer .brand-inline { color: var(--text); font-weight: 700; }
+  footer .links { margin: 8px 0 0; }
+  footer .links a { color: var(--muted); }
+  footer .links a:hover { color: var(--accent); }
+  .to-top {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 14px; padding: 10px 18px;
+    background: var(--card); border: 1px solid var(--stroke);
+    border-radius: 999px; color: var(--text); font-size: 14.5px;
+  }
+  .to-top:hover { border-color: rgba(255,77,79,.5); background: var(--accent-soft); text-decoration: none; }
+
+  /* ── Планшеты ────────────────────────────────────────── */
+  @media (min-width: 700px) {
+    :root { --max: 860px; --pad: 28px; --base: 17px; }
+    .grid2 { grid-template-columns: 1fr 1fr; }
+    section { padding: 26px 30px; }
+    header.hero { padding-top: 48px; }
+  }
+
+  /* ── Ноутбуки и большие экраны ───────────────────────── */
+  @media (min-width: 1100px) {
+    :root { --max: 980px; --base: 18px; }
+    section { margin-top: 22px; padding: 30px 36px; }
+    .summary { padding: 22px 26px; }
+  }
+
+  /* ── Телевизоры: читаемость с дивана ─────────────────── */
+  @media (min-width: 1600px) {
+    :root { --max: 1180px; --base: 22px; }
+    header.hero { padding-top: 64px; }
+    h1 { font-size: 56px; }
+    .lead { font-size: 22px; }
+    .brand-name { font-size: 22px; }
+    .logo { width: 48px; height: 48px; }
+    .updated { font-size: 18px; }
+    .chip { font-size: 19px; padding: 12px 22px; }
+    section { padding: 38px 46px; border-radius: 24px; }
+    section h2 { font-size: 28px; gap: 16px; }
+    .ico { width: 46px; height: 46px; border-radius: 13px; }
+    .note, .perm span { font-size: 19px; }
+    .to-top { font-size: 19px; }
+    footer { font-size: 18px; }
+    a:focus-visible { outline-width: 5px; }
+  }
+</style>
+</head>
+<body id="top">
+<div class="wrap">
+
+  <header class="hero">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M9 7.5v9l7.5-4.5L9 7.5z" fill="#fff"/>
+        </svg>
+      </span>
+      <span class="brand-name">M Tube</span>
+    </div>
+
+    <h1>Условия использования</h1>
+    <p class="lead">Правила пользования приложением — коротко и по-человечески.</p>
+    <div class="updated"><span class="dot" aria-hidden="true"></span>Действуют с 18 ноября 2026 г.</div>
+  </header>
+
+  <nav class="toc" aria-label="Разделы условий">
+    <a class="chip" href="#accept">Принятие</a>
+    <a class="chip" href="#about">О приложении</a>
+    <a class="chip" href="#youtube">YouTube</a>
+    <a class="chip" href="#user">Пользователь</a>
+    <a class="chip" href="#ads">Реклама</a>
+    <a class="chip" href="#ip">Права</a>
+    <a class="chip" href="#liability">Ответственность</a>
+    <a class="chip" href="#contacts">Контакты</a>
+  </nav>
+
+  <div class="summary">
+    <span class="ico" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 4h9a2 2 0 012 2v9"/><path d="M7 8h8a2 2 0 012 2v8a2 2 0 01-2 2H7a2 2 0 01-2-2v-8a2 2 0 012-2z"/>
+      </svg>
+    </span>
+    <p><strong>Коротко:</strong> пользуясь приложением, вы соглашаетесь с этими условиями.
+    Приложение — неофициальный клиент YouTube и не связано с Google. Контент принадлежит
+    его правообладателям.</p>
+  </div>
+
+  <main>
+
+    <section id="accept">
+      <h2><span class="ico" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </span>Принятие условий</h2>
+      <p>Устанавливая, открывая или используя приложение «M Tube», вы подтверждаете, что
+      прочитали и принимаете настоящие Условия использования. Если вы не согласны —
+      пожалуйста, не используйте приложение.</p>
+    </section>
+
+    <section id="about">
+      <h2><span class="ico" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </span>О приложении</h2>
+      <p>M Tube — бесплатное приложение для просмотра видео YouTube на телефоне, планшете
+      и телевизоре. Оно открывает сайт YouTube во встроенном браузере, добавляет фон-
+      воспроизведение, управление жестами и другие удобства. Приложение не загружает и
+      не хранит видео на вашем устройстве.</p>
+      <div class="note">Приложение предоставляется «как есть». Мы не гарантируем
+      непрерывную работу: YouTube может менять сайт, а прокси-серверы — быть недоступны.</div>
+    </section>
+
+    <section id="youtube">
+      <h2><span class="ico" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="12" rx="4"/><path d="M10.5 9.5l4.5 2.5-4.5 2.5v-5z" fill="currentColor" stroke="none"/></svg>
+      </span>Отношение к YouTube и Google</h2>
+      <p>M Tube <strong>не является официальным приложением</strong> YouTube и не связано
+      с Google LLC или YouTube. Все товарные знаки, названия и логотипы принадлежат их
+      владельцам. Пользуясь сайтом YouTube внутри приложения, вы также принимаете
+      <a href="https://www.youtube.com/t/terms">Условия использования YouTube</a> и
+      <a href="https://policies.google.com/privacy">политику конфиденциальности Google</a>.
+      Вход в аккаунт Google выполняется на стороне Google; мы не получаем ваш пароль.</p>
+    </section>
+
+    <section id="user">
+      <h2><span class="ico" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+      </span>Права и обязанности пользователя</h2>
+      <p>Вы обязуетесь:</p>
+      <ul>
+        <li>использовать приложение только в законных целях и соблюдать законы своей страны;</li>
+        <li>не нарушать права правообладателей — не скачивать, не распространять и не
+        перепродавать чужой контент;</li>
+        <li>не пытаться взламывать приложение, обходить ограничения сервисов или
+        навредить другим пользователям.</li>
+      </ul>
+      <p>Вы самостоятельно отвечаете за содержание, которое смотрите, и за соблюдение
+      возрастных ограничений. Доступ к видео в вашем регионе может ограничиваться
+      правилами YouTube.</p>
+    </section>
+
+    <section id="ads">
+      <h2><span class="ico" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l16-7-3 16-5-4-3 3-1-6-4-2z"/></svg>
+      </span>Реклама</h2>
+      <p>Приложение бесплатное и показывается рекламу через Яндекс Реклама. Показывая
+      рекламу, мы поддерживаем разработку. Пожалуйста, не блокируйте её намеренно —
+      это единственный источник финансирования проекта.</p>
+    </section>
+
+    <section id="ip">
+      <h2><span class="ico" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M4 7h16"/><path d="M6 7l-3 6a4 4 0 006 0L6 7z"/><path d="M18 7l-3 6a4 4 0 006 0l-3-6z"/></svg>
+      </span>Интеллектуальная собственность</h2>
+      <p>Видео, музыка, каналы и иной контент, который вы смотрите, принадлежат
+      правообладателям и защищён авторским правом. Приложение не даёт вам прав на этот
+      контент. Дизайн, название и код приложения «M Tube» созданы Safarali Group.</p>
+    </section>
+
+    <section id="liability">
+      <h2><span class="ico" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 4v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V7l7-4z"/><path d="M12 8v4"/><circle cx="12" cy="15.5" r=".6" fill="currentColor"/></svg>
+      </span>Ограничение ответственности</h2>
+      <p>Приложение предоставляется без каких-либо гарантий, явных или подразумеваемых.
+      Мы не отвечаем за перебои в работе YouTube и прокси, за качество и содержание
+      контента, за возможные сбои на вашем устройстве, а также за любые убытки,
+      возникшие в результате использования приложения, в пределах, разрешённых законом.</p>
+    </section>
+
+    <section>
+      <h2><span class="ico" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h10"/></svg>
+      </span>Изменения условий</h2>
+      <p>Мы можем обновлять эти условия при изменении функций приложения или требований
+      законодательства. Новая версия публикуется по этому адресу; дата вступления в силу
+      указана в начале страницы. Продолжая пользоваться приложением, вы принимаете
+      обновлённые условия.</p>
+    </section>
+
+    <section id="contacts">
+      <h2><span class="ico" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 5L3 11l5 2 2 5 3-4 5 3 3-12z"/></svg>
+      </span>Контакты</h2>
+      <p>Вопросы по условиям — Telegram:
+      <a href="https://t.me/Safaraligroup">@Safaraligroup</a>.</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <div><span class="brand-inline">M Tube</span> · Safarali Group</div>
+    <div class="links"><a href="./">Политика конфиденциальности</a> · Условия использования</div>
+    <a class="to-top" href="#top">Наверх ↑</a>
+  </footer>
+
+</div>
+</body>
+</html>
