@@ -2,110 +2,365 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0e11">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="Политика конфиденциальности приложения M Tube: какие данные обрабатываются, зачем нужны разрешения и как удалить свои данные.">
 <title>Политика конфиденциальности — M Tube</title>
 <style>
-  :root { color-scheme: dark; }
-  body {
-    margin: 0 auto; max-width: 760px; padding: 28px 20px 64px;
-    background: #0e1114; color: #dfe7ee;
-    font: 16px/1.65 -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  * { box-sizing: border-box; }
+  :root {
+    --bg: #0b0e11;
+    --bg-soft: #12171d;
+    --card: #151b22;
+    --card-2: #1a212a;
+    --stroke: #242e39;
+    --text: #e8eef5;
+    --muted: #93a6b8;
+    --accent: #ff4d4f;
+    --accent-2: #ff8a5c;
+    --accent-soft: rgba(255, 77, 79, .12);
+    --radius: 18px;
+    --radius-sm: 12px;
+    --max: 780px;
+    --pad: 20px;
+    --base: 16px;
   }
-  h1 { font-size: 26px; margin: 0 0 4px; color: #fff; }
-  h2 { font-size: 19px; margin: 32px 0 8px; color: #fff; }
-  p, li { margin: 8px 0; }
-  .muted { color: #8fa3b5; font-size: 14px; }
-  a { color: #ff5a5a; }
-  ul { padding-left: 22px; }
-  .card {
-    background: #161b21; border: 1px solid #232c35; border-radius: 14px;
-    padding: 14px 18px; margin: 18px 0;
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    background:
+      radial-gradient(1100px 520px at 15% -10%, rgba(255, 77, 79, .16), transparent 60%),
+      radial-gradient(900px 480px at 100% 0%, rgba(255, 138, 92, .10), transparent 55%),
+      var(--bg);
+    color: var(--text);
+    font: var(--base)/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--accent-2);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+
+  /* ── Шапка ───────────────────────────────────────────── */
+  header.hero { padding: 34px 0 10px; }
+  .brand {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 8px 16px 8px 10px;
+    background: linear-gradient(135deg, rgba(255,77,79,.16), rgba(255,138,92,.08));
+    border: 1px solid rgba(255, 77, 79, .28);
+    border-radius: 999px;
+  }
+  .logo {
+    width: 38px; height: 38px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, #ff4d4f, #ff7a45);
+    box-shadow: 0 6px 18px rgba(255, 77, 79, .35);
+    flex: none;
+  }
+  .logo svg { display: block; }
+  .brand-name { font-weight: 800; letter-spacing: .2px; font-size: 17px; }
+  h1 {
+    font-size: clamp(28px, 6vw, 44px);
+    line-height: 1.15;
+    margin: 22px 0 10px;
+    letter-spacing: -.5px;
+  }
+  .lead { color: var(--muted); font-size: clamp(15px, 2.4vw, 18px); margin: 0 0 6px; }
+  .updated {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 14px; padding: 7px 14px;
+    background: var(--bg-soft);
+    border: 1px solid var(--stroke);
+    border-radius: 999px;
+    color: var(--muted); font-size: 14px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #35d07f; box-shadow: 0 0 10px #35d07f88; flex: none; }
+
+  /* ── Быстрая навигация ───────────────────────────────── */
+  nav.toc {
+    display: flex; gap: 10px; overflow-x: auto;
+    padding: 18px 0 6px;
+    scrollbar-width: none;
+  }
+  nav.toc::-webkit-scrollbar { display: none; }
+  .chip {
+    flex: none; padding: 9px 16px;
+    background: var(--card); border: 1px solid var(--stroke);
+    border-radius: 999px; color: var(--text);
+    font-size: 14.5px; white-space: nowrap;
+    transition: border-color .2s, background .2s, transform .15s;
+  }
+  .chip:hover { border-color: rgba(255,77,79,.5); background: var(--accent-soft); text-decoration: none; }
+  .chip:active { transform: scale(.97); }
+
+  /* ── Карточка-итог ───────────────────────────────────── */
+  .summary {
+    margin: 20px 0 6px;
+    padding: 18px 20px;
+    background: linear-gradient(135deg, rgba(255,77,79,.14), rgba(255,138,92,.06));
+    border: 1px solid rgba(255, 77, 79, .30);
+    border-radius: var(--radius);
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .summary .ico { flex: none; margin-top: 2px; }
+  .summary p { margin: 0; }
+
+  /* ── Секции ──────────────────────────────────────────── */
+  main { padding: 8px 0 40px; }
+  section {
+    margin-top: 18px;
+    padding: 20px 22px;
+    background: var(--card);
+    border: 1px solid var(--stroke);
+    border-radius: var(--radius);
+  }
+  section h2 {
+    display: flex; align-items: center; gap: 12px;
+    font-size: clamp(18px, 3vw, 22px);
+    line-height: 1.3;
+    margin: 0 0 10px;
+    letter-spacing: -.2px;
+  }
+  .ico {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: grid; place-items: center; flex: none;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  section p, section li { margin: 9px 0; }
+  section p:first-of-type { margin-top: 0; }
+  ul { padding-left: 20px; }
+  li::marker { color: var(--accent); }
+  strong { color: #fff; font-weight: 700; }
+  .note {
+    padding: 12px 14px;
+    background: var(--card-2);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .grid2 { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .perm {
+    padding: 14px 16px;
+    background: var(--card-2);
+    border: 1px solid var(--stroke);
+    border-radius: var(--radius-sm);
+  }
+  .perm b { display: block; margin-bottom: 3px; color: #fff; }
+  .perm span { color: var(--muted); font-size: 15px; }
+
+  /* ── Подвал ──────────────────────────────────────────── */
+  footer {
+    padding: 26px 0 46px;
+    color: var(--muted); font-size: 14.5px;
+    text-align: center;
+  }
+  footer .brand-inline { color: var(--text); font-weight: 700; }
+  .to-top {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 14px; padding: 10px 18px;
+    background: var(--card); border: 1px solid var(--stroke);
+    border-radius: 999px; color: var(--text); font-size: 14.5px;
+  }
+  .to-top:hover { border-color: rgba(255,77,79,.5); background: var(--accent-soft); text-decoration: none; }
+
+  /* ── Планшеты ────────────────────────────────────────── */
+  @media (min-width: 700px) {
+    :root { --max: 860px; --pad: 28px; --base: 17px; }
+    .grid2 { grid-template-columns: 1fr 1fr; }
+    section { padding: 26px 30px; }
+    header.hero { padding-top: 48px; }
+  }
+
+  /* ── Ноутбуки и большие экраны ───────────────────────── */
+  @media (min-width: 1100px) {
+    :root { --max: 980px; --base: 18px; }
+    section { margin-top: 22px; padding: 30px 36px; }
+    .summary { padding: 22px 26px; }
+  }
+
+  /* ── Телевизоры: читаемость с дивана ─────────────────── */
+  @media (min-width: 1600px) {
+    :root { --max: 1180px; --base: 22px; }
+    header.hero { padding-top: 64px; }
+    h1 { font-size: 56px; }
+    .lead { font-size: 22px; }
+    .brand-name { font-size: 22px; }
+    .logo { width: 48px; height: 48px; }
+    .updated { font-size: 18px; }
+    .chip { font-size: 19px; padding: 12px 22px; }
+    section { padding: 38px 46px; border-radius: 24px; }
+    section h2 { font-size: 28px; gap: 16px; }
+    .ico { width: 46px; height: 46px; border-radius: 13px; }
+    .note, .perm span { font-size: 19px; }
+    .to-top { font-size: 19px; }
+    a:focus-visible { outline-width: 5px; }
   }
 </style>
 </head>
 <body>
+<div class="wrap">
 
-<h1>Политика конфиденциальности</h1>
-<p class="muted">Приложение «M Tube» (com.proxytube.app) · Действует с 18 ноября 2026 г.</p>
+  <header class="hero">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M9 7.5v9l7.5-4.5L9 7.5z" fill="#fff"/>
+        </svg>
+      </span>
+      <span class="brand-name">M Tube</span>
+    </div>
 
-<div class="card">
-  <p><strong>Коротко:</strong> приложение не требует регистрации и не собирает ваши
-  персональные данные. Мы не имеем доступа к вашим аккаунтам, перепискам, контактам,
-  фотографиям и геолокации.</p>
+    <h1>Политика конфиденциальности</h1>
+    <p class="lead">Простыми словами: что приложение делает с данными и чего оно не делает.</p>
+    <div class="updated"><span class="dot" aria-hidden="true"></span>Действует с 18 ноября 2026 г.</div>
+  </header>
+
+  <nav class="toc" aria-label="Разделы политики">
+    <a class="chip" href="#who">Кто мы</a>
+    <a class="chip" href="#data">Данные</a>
+    <a class="chip" href="#permissions">Разрешения</a>
+    <a class="chip" href="#third">Третьи лица</a>
+    <a class="chip" href="#storage">Хранение</a>
+    <a class="chip" href="#kids">Дети</a>
+    <a class="chip" href="#contacts">Контакты</a>
+  </nav>
+
+  <div class="summary">
+    <span class="ico" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3l7 4v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V7l7-4z"/>
+        <path d="M9 12l2 2 4-4"/>
+      </svg>
+    </span>
+    <p><strong>Коротко:</strong> приложение не требует регистрации и не собирает ваши
+    персональные данные. Мы не имеем доступа к вашим аккаунтам, перепискам, контактам,
+    фотографиям и геолокации.</p>
+  </div>
+
+  <main>
+
+    <section id="who">
+      <h2><span class="ico" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+      </span>Кто мы</h2>
+      <p>Приложение «M Tube» разработано и поддерживается <strong>Safarali Group</strong>
+      (далее — «мы», «разработчик»). Контакт для любых вопросов по обработке данных —
+      Telegram <a href="https://t.me/Safaraligroup">@Safaraligroup</a>.</p>
+    </section>
+
+    <section id="data">
+      <h2><span class="ico" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3z"/><path d="M4 7v10c0 1.7 3.6 3 8 3s8-1.3 8-3V7"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
+      </span>Какие данные обрабатываются</h2>
+      <p><strong>Вы вводите сами.</strong> Аккаунт в приложении не требуется. Если вы
+      входите в аккаунт Google внутри встроенного окна YouTube, эти данные обрабатываются
+      Google по его правилам; мы к ним доступа не имеем и не храним.</p>
+      <p><strong>Технические данные страницы.</strong> Приложение открывает YouTube во
+      встроенном браузере. Сайт может сохранять на вашем устройстве cookie, кэш и
+      локальное хранилище — как в обычном браузере. Этими данными управляет Google.
+      Мы не передаём их третьим лицам и не имеем к ним доступа.</p>
+      <p><strong>Соединение.</strong> Для доступа к YouTube приложение использует
+      прокси-серверы. Через них проходит сетевой трафик, необходимый для работы
+      приложения. Мы не ведём журналов содержимого ваших запросов, не сохраняем историю
+      просмотров и не связываем трафик с вашей личностью.</p>
+      <p><strong>Реклама.</strong> В приложении показывается реклама через рекламную сеть
+      <strong>Яндекс Реклама (Yandex Mobile Ads)</strong>. Рекламная сеть может получать
+      обезличенные технические сведения об устройстве (модель, версия системы, язык,
+      рекламный идентификатор) для подбора и показа объявлений. Подробнее:
+      <a href="https://yandex.ru/legal/confidential/">политика конфиденциальности
+      Яндекса</a>. Мы не передаём рекламной сети ваше имя, телефон, почту или иные
+      сведения, которые позволяют вас идентифицировать.</p>
+      <div class="note"><strong>Мы не собираем:</strong> ФИО, телефон, e-mail, контакты,
+      SMS, фото и видео из галереи, геолокацию, список установленных приложений,
+      историю просмотров.</div>
+    </section>
+
+    <section id="permissions">
+      <h2><span class="ico" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 4v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V7l7-4z"/></svg>
+      </span>Разрешения и зачем они</h2>
+      <div class="grid2">
+        <div class="perm"><b>Интернет</b><span>Загрузка видео и страниц YouTube.</span></div>
+        <div class="perm"><b>Уведомления</b><span>Кнопка «Остановить» для фонового воспроизведения.</span></div>
+        <div class="perm"><b>Работа в фоне</b><span>Звук не обрывается, когда экран выключен или приложение свёрнуто.</span></div>
+      </div>
+    </section>
+
+    <section id="third">
+      <h2><span class="ico" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12h8"/><path d="M12 8v8"/><circle cx="12" cy="12" r="9"/></svg>
+      </span>Передача данных третьим лицам</h2>
+      <p>Мы не продаём и не передаём ваши персональные данные. Обработка происходит
+      только в объёме, необходимом для работы функций приложения, силами:</p>
+      <ul>
+        <li><strong>Google / YouTube</strong> — содержимое сайта и ваши действия на нём
+        регулируются <a href="https://policies.google.com/privacy">политикой Google</a>;</li>
+        <li><strong>Яндекс</strong> — показ рекламы;</li>
+        <li><strong>прокси-серверы</strong> — только для доставки сетевых запросов.</li>
+      </ul>
+    </section>
+
+    <section id="storage">
+      <h2><span class="ico" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M7 7v13h10V7"/><path d="M10 11v6M14 11v6"/><path d="M9 7V4h6v3"/></svg>
+      </span>Хранение и удаление</h2>
+      <p>Мы не храним ваши данные на своих серверах. Все локальные данные (cookie, кэш,
+      настройки) хранятся только на вашем устройстве. Удалить их можно в любой момент:
+      «Настройки телефона → Приложения → M Tube → Память → Очистить данные» или
+      удалением приложения.</p>
+    </section>
+
+    <section id="kids">
+      <h2><span class="ico" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2.2"/><path d="M3 20c1-3.3 3.3-5 6-5s5 1.7 6 5"/><path d="M15 20c.5-2.2 1.7-3.5 3.5-3.5S21.5 18 22 20"/></svg>
+      </span>Дети</h2>
+      <p>Приложение не предназначено для детей младше 13 лет и не собирает данные о них
+      осознанно. Если вы считаете, что ребёнок пользуется приложением, вы можете удалить
+      данные приложения на устройстве.</p>
+    </section>
+
+    <section>
+      <h2><span class="ico" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 118 0v3"/></svg>
+      </span>Безопасность</h2>
+      <p>Соединение с сайтами выполняется по HTTPS. Мы принимаем разумные меры, чтобы
+      предотвратить несанкционированный доступ, однако ни один способ передачи данных
+      в интернете не является абсолютно безопасным.</p>
+    </section>
+
+    <section>
+      <h2><span class="ico" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h10"/></svg>
+      </span>Изменения политики</h2>
+      <p>Мы можем обновлять эту политику. Актуальная версия всегда доступна по этому
+      адресу; дата вступления в силу указана в начале страницы.</p>
+    </section>
+
+    <section id="contacts">
+      <h2><span class="ico" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 5L3 11l5 2 2 5 3-4 5 3 3-12z"/></svg>
+      </span>Контакты</h2>
+      <p>По любым вопросам, связанным с конфиденциальностью, пишите в Telegram:
+      <a href="https://t.me/Safaraligroup">@Safaraligroup</a>.</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <div><span class="brand-inline">M Tube</span> · Safarali Group</div>
+    <a class="to-top" href="#top">Наверх ↑</a>
+  </footer>
+
 </div>
-
-<h2>1. Кто мы</h2>
-<p>Приложение «M Tube» разработано и поддерживается Safarali Group (далее — «мы»,
-«разработчик»). Контакт для любых вопросов по обработке данных:
-Telegram <a href="https://t.me/Safaraligroup">@Safaraligroup</a>.</p>
-
-<h2>2. Какие данные обрабатываются</h2>
-<p><strong>2.1. Данные, которые вы вводите сами.</strong> Аккаунт в приложении не
-требуется. Если вы входите в аккаунт Google внутри встроенного окна YouTube, эти
-данные обрабатываются Google по его правилам; мы к ним доступа не имеем и не
-храним.</p>
-<p><strong>2.2. Технические данные страницы.</strong> Приложение открывает YouTube
-во встроенном браузере (WebView). Сайт YouTube может сохранять на вашем устройстве
-cookie, кэш и локальное хранилище — как в обычном браузере. Этими данными
-управляет Google. Мы не передаём их третьим лицам и не имеем к ним доступа.</p>
-<p><strong>2.3. Соединение.</strong> Для доступа к YouTube приложение использует
-прокси-серверы. Через них проходит сетевой трафик, необходимый для работы
-приложения. Мы не ведём журналов содержимого ваших запросов, не сохраняем историю
-просмотров и не связываем трафик с вашей личностью.</p>
-<p><strong>2.4. Реклама.</strong> В приложении показывается реклама через
-рекламную сеть <strong>Яндекс Реклама (Yandex Mobile Ads)</strong>. Рекламная сеть
-может получать обезличенные технические сведения об устройстве (модель, версия
-системы, язык, рекламный идентификатор) для подбора и показа объявлений.
-Подробнее: <a href="https://yandex.ru/legal/confidential/">политика
-конфиденциальности Яндекса</a>. Мы не передаём рекламной сети ваше имя, телефон,
-почту или иные сведения, которые позволяют вас идентифицировать.</p>
-<p><strong>2.5. Мы не собираем:</strong> ФИО, телефон, e-mail, контакты, SMS,
-фото и видео из галереи, геолокацию, список установленных приложений, историю
-просмотров.</p>
-
-<h2>3. Разрешения и зачем они</h2>
-<ul>
-  <li><strong>Интернет</strong> — загрузка видео и страниц YouTube.</li>
-  <li><strong>Уведомления</strong> — управление фоновым воспроизведением
-      (кнопка «Остановить» в шторке).</li>
-  <li><strong>Работа в фоне (wake lock, foreground service)</strong> — чтобы звук
-      не обрывался, когда экран выключен или приложение свёрнуто.</li>
-</ul>
-
-<h2>4. Передача данных третьим лицам</h2>
-<p>Мы не продаём и не передаём ваши персональные данные. Обработка происходит
-только в объёме, необходимом для работы функций приложения, силами:</p>
-<ul>
-  <li><strong>Google / YouTube</strong> — содержимое сайта и ваши действия на нём
-      регулируются <a href="https://policies.google.com/privacy">политикой
-      Google</a>;</li>
-  <li><strong>Яндекс</strong> — показ рекламы, см. пункт 2.4;</li>
-  <li><strong>прокси-серверы</strong> — только для доставки сетевых запросов.</li>
-</ul>
-
-<h2>5. Хранение и удаление</h2>
-<p>Мы не храним ваши данные на своих серверах. Все локальные данные (cookie, кэш,
-настройки) хранятся только на вашем устройстве. Удалить их можно в любой момент:
-«Настройки телефона → Приложения → M Tube → Память → Очистить данные» или
-удалением приложения.</p>
-
-<h2>6. Дети</h2>
-<p>Приложение не предназначено для детей младше 13 лет и не собирает данные о них
-осознанно. Если вы считаете, что ребёнок пользуется приложением, вы можете
-удалить данные приложения на устройстве.</p>
-
-<h2>7. Безопасность</h2>
-<p>Соединение с сайтами выполняется по HTTPS. Мы принимаем разумные меры, чтобы
-предотвратить несанкционированный доступ, однако ни один способ передачи данных
-в интернете не является абсолютно безопасным.</p>
-
-<h2>8. Изменения политики</h2>
-<p>Мы можем обновлять эту политику. Актуальная версия всегда доступна по этому
-адресу; дата вступления в силу указана в начале страницы.</p>
-
-<h2>9. Контакты</h2>
-<p>По любым вопросам, связанным с конфиденциальностью, пишите в Telegram:
-<a href="https://t.me/Safaraligroup">@Safaraligroup</a>.</p>
-
 </body>
 </html>
