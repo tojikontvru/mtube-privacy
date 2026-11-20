@@ -1,0 +1,16 @@
+{
+  "latestVersionCode": 46,
+  "latestVersionName": "3.24",
+  "forceAfterDays": 7,
+  "forceBelowVersionCode": 0,
+  "playUrl": "https://play.google.com/store/apps/details?id=com.proxytube.app",
+  "apkUrl": "https://github.com/tojikontvru/MTube/releases/latest",
+  "notes": [
+    "Плеер в шторке стал красивым, как в Vanced: видно название видео, канал и картинку ролика",
+    "Полоска перемотки прямо в уведомлении и на экране блокировки",
+    "Свои иконки ⏮ ⏸ ⏭ в стиле YouTube вместо системных",
+    "Название, канал и состояние «играет / пауза» всегда совпадают с плеером",
+    "Кнопки на наушниках тоже управляют видео",
+    "Звук больше не пропадает после кнопки «Домой»"
+  ]
+}
