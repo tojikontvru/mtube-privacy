@@ -4,20 +4,12 @@
   "forceAfterDays": 7,
   "forceBelowVersionCode": 0,
   "playUrl": "https://play.google.com/store/apps/details?id=com.proxytube.app",
-  "apkUrl": "https://tojikontvru.github.io/mtube-privacy/apk/MTube-3.26.apk",
-  "notes": {
-    "latestVersionCode": 48,
-    "latestVersionName": "3.26",
-    "forceAfterDays": 7,
-    "forceBelowVersionCode": 0,
-    "playUrl": "https://play.google.com/store/apps/details?id=com.proxytube.app",
-    "apkUrl": "https://tojikontvru.github.io/mtube-privacy/apk/MTube-latest.apk",
-    "notes": [
-      "Приглашение друзьям стало современным: нижний лист с кнопками Telegram, WhatsApp, «Другие приложения» и «Скопировать»",
-      "В тексте приглашения теперь всегда есть ссылка на приложение — друзьям остаётся только нажать «Установить»",
-      "Отдельная кнопка «Скопировать ссылку» — удобно вставлять в подпись или историю",
-      "Приглашение переписано живыми словами: понятно, чем M Tube лучше, без сухих фраз",
-      "Плеер в шторке как у Vanced и обновление через Google Play — на месте"
-    ]
-  }
+  "apkUrl": "https://tojikontvru.github.io/mtube-privacy/apk/MTube-latest.apk",
+  "notes": [
+    "Приглашение друзьям стало современным: нижний лист с кнопками Telegram, WhatsApp, «Другие приложения» и «Скопировать»",
+    "В тексте приглашения теперь всегда есть ссылка на приложение — друзьям остаётся только нажать «Установить»",
+    "Отдельная кнопка «Скопировать ссылку» — удобно вставлять в подпись или историю",
+    "Приглашение переписано живыми словами: понятно, чем M Tube лучше, без сухих фраз",
+    "Плеер в шторке как у Vanced и обновление через Google Play — на месте"
+  ]
 }
