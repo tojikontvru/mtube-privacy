@@ -1,15 +1,15 @@
 {
-  "latestVersionCode": 54,
-  "latestVersionName": "3.32",
+  "latestVersionCode": 55,
+  "latestVersionName": "3.33",
   "forceAfterDays": 7,
   "forceBelowVersionCode": 0,
   "playUrl": "https://play.google.com/store/apps/details?id=com.proxytube.app",
   "apkUrl": "https://tojikontvru.github.io/mtube-privacy/apk/MTube-latest.apk",
   "notes": [
-    "Старт стал надёжнее: сохранённому серверу даётся больше времени на ответ",
-    "Проверка прокси быстрее: лёгкий адрес YouTube вместо тяжёлой главной страницы",
-    "Меньше ложных переключений на медленной сети",
-    "Свой список и сохранённый пул проверяются с запасом по времени",
+    "Только SOCKS5: HTTP-прокси полностью исключены из автоподбора",
+    "Свой список и «Мой прокси» проверяются на SOCKS5",
+    "HTTP-списки не скачиваются — меньше лишних проверок",
+    "Переключатель в настройках, режим запоминается",
     "Картинка в картинке, продолжение с места и диагностика на месте"
   ]
 }
