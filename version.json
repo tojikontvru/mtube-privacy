@@ -1,15 +1,15 @@
 {
-  "latestVersionCode": 55,
-  "latestVersionName": "3.33",
+  "latestVersionCode": 56,
+  "latestVersionName": "3.34",
   "forceAfterDays": 7,
   "forceBelowVersionCode": 0,
   "playUrl": "https://play.google.com/store/apps/details?id=com.proxytube.app",
   "apkUrl": "https://tojikontvru.github.io/mtube-privacy/apk/MTube-latest.apk",
   "notes": [
-    "Только SOCKS5: HTTP-прокси полностью исключены из автоподбора",
-    "Свой список и «Мой прокси» проверяются на SOCKS5",
-    "HTTP-списки не скачиваются — меньше лишних проверок",
-    "Переключатель в настройках, режим запоминается",
-    "Картинка в картинке, продолжение с места и диагностика на месте"
+    "Обязательное согласие с условиями и политикой при первом запуске",
+    "Без согласия приложение не запускает WebView и прокси",
+    "Новый публичный сайт с возможностями, установкой и документами",
+    "Режим «Только SOCKS5» и надёжный автоподбор на месте",
+    "Версия 3.34 (56)"
   ]
 }

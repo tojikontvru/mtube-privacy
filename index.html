@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b0e11">
 <meta name="color-scheme" content="dark">
-<meta name="description" content="Политика конфиденциальности приложения M Tube: какие данные обрабатываются, зачем нужны разрешения и как удалить свои данные.">
-<title>Политика конфиденциальности | M Tube</title>
+<meta name="description" content="M Tube — YouTube через прокси на Android. Автоподбор сервера, режим только SOCKS5, картинка в картинке и продолжение с места. Скачать APK.">
+<link rel="icon" href="assets/icon.png" type="image/png">
+<title>M Tube — YouTube через прокси | Safarali Group</title>
 <style>
   * { box-sizing: border-box; }
   :root {
     --bg: #0b0e11;
-    --bg-soft: #12171d;
+    --bg-soft: #10151a;
     --card: #151b22;
     --card-2: #1a212a;
     --stroke: #242e39;
@@ -20,19 +21,22 @@
     --accent: #ff4d4f;
     --accent-2: #ff8a5c;
     --accent-soft: rgba(255, 77, 79, .12);
-    --radius: 18px;
-    --radius-sm: 12px;
-    --max: 780px;
+    --green: #45d483;
+    --radius: 22px;
+    --radius-sm: 14px;
+    --max: 1120px;
     --pad: 20px;
-    --base: 16px;
   }
   html { scroll-behavior: smooth; }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
   body {
     margin: 0;
     background: var(--bg);
     color: var(--text);
-    font: var(--base)/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -41,280 +45,442 @@
   a:focus-visible, button:focus-visible {
     outline: 3px solid var(--accent-2);
     outline-offset: 3px;
-    border-radius: 6px;
+    border-radius: 8px;
   }
-
   .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+  .skip {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--accent); color: #fff; padding: 10px 16px; z-index: 100;
+  }
+  .skip:focus { left: 12px; top: 12px; }
 
   /* ── Шапка ───────────────────────────────────────────── */
-  header.hero { padding: 32px 0 8px; }
-  .brand {
-    display: inline-flex; align-items: center; gap: 12px;
+  .site-header {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(11, 14, 17, .88);
+    border-bottom: 1px solid rgba(255, 255, 255, .06);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
   }
-  .logo {
-    width: 40px; height: 40px; border-radius: 50%;
-    display: grid; place-items: center;
-    background: var(--accent);
-    flex: none;
+  .header-inner {
+    min-height: 70px;
+    display: flex; align-items: center; justify-content: space-between; gap: 18px;
   }
-  .logo svg { display: block; }
-  .brand-name { font-weight: 600; letter-spacing: .2px; font-size: 17px; }
+  .brand { display: inline-flex; align-items: center; gap: 11px; color: var(--text); }
+  .brand:hover { text-decoration: none; }
+  .brand img {
+    width: 38px; height: 38px; border-radius: 12px;
+    background: #000; object-fit: contain;
+  }
+  .brand-name { font-weight: 700; letter-spacing: .2px; }
+  .site-nav { display: flex; align-items: center; gap: 22px; }
+  .site-nav a { color: var(--muted); font-size: 14.5px; }
+  .site-nav a:hover { color: var(--text); text-decoration: none; }
+  .nav-download {
+    padding: 9px 16px; border-radius: 999px;
+    background: var(--accent); color: #fff !important;
+    font-weight: 700; font-size: 14px;
+  }
+  .nav-download:hover { background: #e53b3e; }
+
+  /* ── Первый экран ────────────────────────────────────── */
+  .hero { padding: 72px 0 56px; overflow: hidden; }
+  .hero-grid {
+    display: grid; grid-template-columns: 1.15fr .85fr;
+    gap: 48px; align-items: center;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    margin: 0 0 18px; padding: 7px 13px;
+    border: 1px solid var(--stroke); border-radius: 999px;
+    background: var(--bg-soft); color: var(--muted);
+    font-size: 13px; font-weight: 600;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px rgba(69, 212, 131, .5); }
   h1 {
-    font-size: clamp(28px, 6vw, 44px);
-    line-height: 1.15;
-    margin: 20px 0 8px;
-    letter-spacing: -.5px;
+    margin: 0 0 20px;
+    font-size: clamp(40px, 6.3vw, 74px);
+    line-height: 1.02;
+    letter-spacing: -2.2px;
+    font-weight: 800;
   }
-  .updated {
-    margin-top: 12px;
-    color: var(--muted); font-size: 14px;
+  h1 span {
+    background: linear-gradient(100deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
+  .lead { max-width: 560px; margin: 0 0 28px; color: var(--muted); font-size: 18px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 52px; padding: 0 22px;
+    border-radius: 15px; border: 1px solid transparent;
+    background: var(--accent); color: #fff;
+    font-weight: 700; font-size: 16px;
+    transition: transform .15s, background .2s, border-color .2s;
+  }
+  .btn:hover { text-decoration: none; background: #e53b3e; transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+  .btn small { font-weight: 500; opacity: .8; font-size: 12px; }
+  .btn.ghost { background: transparent; border-color: var(--stroke); color: var(--text); }
+  .btn.ghost:hover { background: var(--card); border-color: #3a4654; }
+  .meta { margin: 16px 0 0; color: var(--text-muted, #5f7385); font-size: 13px; }
 
-  /* ── Быстрая навигация ───────────────────────────────── */
-  nav.toc {
-    display: flex; gap: 8px; overflow-x: auto;
-    padding: 16px 0 8px;
-    scrollbar-width: none;
-  }
-  nav.toc::-webkit-scrollbar { display: none; }
-  .chip {
-    flex: none; padding: 8px 16px;
-    background: var(--card); border: 1px solid var(--stroke);
-    border-radius: 999px; color: var(--text);
-    font-size: 14.5px; white-space: nowrap;
-    transition: border-color .2s, background .2s, transform .15s;
-  }
-  .chip:hover { border-color: var(--accent); background: var(--accent-soft); text-decoration: none; }
-  .chip:active { transform: scale(.97); }
-
-  /* ── Карточка-итог ───────────────────────────────────── */
-  .summary {
-    margin: 20px 0 8px;
-    padding: 20px;
-    background: var(--card-2);
+  /* ── Карточка-витрина ────────────────────────────────── */
+  .app-card {
+    position: relative;
+    padding: 18px;
+    background: linear-gradient(160deg, #1a212a, #10151a 70%);
     border: 1px solid var(--stroke);
-    border-radius: var(--radius);
+    border-radius: 26px;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .38);
   }
-  .summary p { margin: 0; }
+  .app-card::before {
+    content: ""; position: absolute; inset: -1px; z-index: -1;
+    border-radius: 27px;
+    background: linear-gradient(140deg, rgba(255, 77, 79, .5), transparent 42%);
+    opacity: .55;
+  }
+  .app-card-top { display: flex; align-items: center; gap: 11px; margin-bottom: 16px; }
+  .mini-logo {
+    width: 38px; height: 38px; border-radius: 12px;
+    display: grid; place-items: center;
+    background: var(--accent); color: #fff; font-size: 15px;
+  }
+  .app-card-top b { display: block; font-size: 14.5px; }
+  .app-card-top span { display: block; color: var(--muted); font-size: 11.5px; }
+  .pill {
+    margin-left: auto; padding: 5px 10px;
+    border-radius: 999px; border: 1px solid rgba(69, 212, 131, .35);
+    background: rgba(69, 212, 131, .1); color: var(--green);
+    font-size: 10px; font-weight: 800; letter-spacing: .7px;
+  }
+  .screen {
+    position: relative; aspect-ratio: 16 / 10;
+    border-radius: 16px; overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, .07);
+    background:
+      radial-gradient(120% 100% at 15% 0%, rgba(255, 77, 79, .22), transparent 48%),
+      linear-gradient(145deg, #202731, #0c1014 72%);
+  }
+  .screen::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, .55));
+  }
+  .screen-play {
+    position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%);
+    width: 58px; height: 58px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: rgba(255, 255, 255, .12);
+    border: 1px solid rgba(255, 255, 255, .24);
+    color: #fff; font-size: 19px; padding-left: 4px;
+    backdrop-filter: blur(5px);
+  }
+  .screen-caption { position: absolute; left: 14px; bottom: 12px; z-index: 1; }
+  .screen-caption b { display: block; font-size: 12px; }
+  .screen-caption span { display: block; color: var(--muted); font-size: 10px; }
+  .app-row {
+    display: flex; align-items: center; gap: 9px;
+    margin-top: 10px; padding: 10px 12px;
+    background: rgba(255, 255, 255, .035);
+    border: 1px solid rgba(255, 255, 255, .06);
+    border-radius: 12px;
+    color: var(--muted); font-size: 12px;
+  }
+  .app-row strong { color: var(--text); font-weight: 600; }
+  .app-row .ok { margin-left: auto; color: var(--green); font-weight: 700; }
 
   /* ── Секции ──────────────────────────────────────────── */
-  main { padding: 8px 0 40px; }
-  section {
-    margin-top: 20px;
-    padding: 20px 24px;
+  section { padding: 56px 0; }
+  .section-head { max-width: 700px; margin-bottom: 28px; }
+  .kicker {
+    margin: 0 0 8px; color: var(--accent); font-size: 12px;
+    font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
+  }
+  h2 {
+    margin: 0; font-size: clamp(28px, 4vw, 40px);
+    line-height: 1.14; letter-spacing: -1px;
+  }
+  .section-head p { margin: 12px 0 0; color: var(--muted); font-size: 16.5px; }
+
+  .feature-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  }
+  .feature {
+    padding: 20px;
     background: var(--card);
     border: 1px solid var(--stroke);
     border-radius: var(--radius);
   }
-  section h2 {
-    font-size: clamp(18px, 3vw, 22px);
-    line-height: 1.3;
-    margin: 0 0 8px;
-    letter-spacing: -.2px;
+  .feature .ico {
+    width: 42px; height: 42px; margin-bottom: 14px;
+    display: grid; place-items: center;
+    border-radius: 13px;
+    background: var(--accent-soft);
+    border: 1px solid rgba(255, 77, 79, .22);
+    color: var(--accent); font-size: 18px;
   }
-  section p, section li { margin: 8px 0; }
-  section p:first-of-type { margin-top: 0; }
-  ul { padding-left: 20px; }
-  li::marker { color: var(--accent); }
-  strong { color: #fff; font-weight: 700; }
-  .note {
-    padding: 12px 16px;
-    background: var(--card-2);
+  .feature h3 { margin: 0 0 6px; font-size: 16.5px; }
+  .feature p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+  .feature.wide { grid-column: span 2; }
+  .feature.wide p { max-width: 620px; }
+
+  .split {
+    display: grid; grid-template-columns: .9fr 1.1fr;
+    gap: 28px; align-items: start;
+  }
+  .legal-card, .install-card, .data-card {
+    background: var(--card);
+    border: 1px solid var(--stroke);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+  .legal-card h3, .install-card h3, .data-card h3 { margin: 0 0 10px; font-size: 20px; }
+  .legal-card p, .install-card p, .data-card p { color: var(--muted); font-size: 14.5px; }
+  .legal-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+  .legal-links a {
+    padding: 9px 13px; border-radius: 10px;
+    border: 1px solid var(--stroke); background: var(--card-2);
+    color: var(--text); font-size: 13.5px;
+  }
+  .legal-links a:hover { border-color: var(--accent); text-decoration: none; }
+  .steps { counter-reset: step; display: grid; gap: 12px; margin: 16px 0 0; padding: 0; list-style: none; }
+  .steps li { position: relative; padding-left: 42px; color: var(--muted); font-size: 14.5px; }
+  .steps li::before {
+    counter-increment: step; content: counter(step);
+    position: absolute; left: 0; top: -2px;
+    width: 29px; height: 29px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--accent-soft); border: 1px solid rgba(255, 77, 79, .3);
+    color: var(--accent); font-weight: 800; font-size: 12px;
+  }
+  .steps b { color: var(--text); }
+  .data-list { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 9px; }
+  .data-list li { color: var(--muted); font-size: 14.5px; padding-left: 24px; position: relative; }
+  .data-list li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+  .data-actions { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .notice {
+    margin-top: 18px; padding: 14px 16px;
     border-left: 3px solid var(--accent);
     border-radius: 10px;
-    color: var(--muted);
-    font-size: 15px;
-  }
-  .grid2 { display: grid; grid-template-columns: 1fr; gap: 12px; }
-  .perm {
-    padding: 16px;
     background: var(--card-2);
-    border: 1px solid var(--stroke);
-    border-radius: var(--radius-sm);
+    color: var(--muted); font-size: 13.5px;
   }
-  .perm b { display: block; margin-bottom: 4px; color: #fff; }
-  .perm span { color: var(--muted); font-size: 15px; }
 
-  /* ── Подвал ──────────────────────────────────────────── */
   footer {
-    padding: 24px 0 48px;
-    color: var(--muted); font-size: 14.5px;
-    text-align: center;
+    margin-top: 20px; padding: 34px 0 48px;
+    border-top: 1px solid var(--stroke);
+    color: var(--muted); font-size: 13.5px;
   }
-  footer .brand-inline { color: var(--text); font-weight: 700; }
-  footer .links { margin: 8px 0 0; }
-  footer .links a { color: var(--muted); }
-  footer .links a:hover { color: var(--accent); }
-  .to-top {
-    display: inline-flex; align-items: center; gap: 8px;
-    margin-top: 16px; padding: 10px 20px;
-    background: var(--card); border: 1px solid var(--stroke);
-    border-radius: 999px; color: var(--text); font-size: 14.5px;
-  }
-  .to-top:hover { border-color: var(--accent); background: var(--accent-soft); text-decoration: none; }
+  .footer-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: flex-start; }
+  .footer-brand { display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 700; }
+  .footer-brand img { width: 30px; height: 30px; border-radius: 9px; }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 16px; }
+  .footer-links a { color: var(--muted); }
+  .footer-links a:hover { color: var(--accent); text-decoration: none; }
+  .footer-note { margin-top: 18px; max-width: 760px; color: #5f7385; font-size: 12.5px; }
 
-  /* ── Планшеты ────────────────────────────────────────── */
-  @media (min-width: 700px) {
-    :root { --max: 860px; --pad: 32px; --base: 17px; }
-    .grid2 { grid-template-columns: 1fr 1fr; }
-    section { padding: 24px 32px; }
-    header.hero { padding-top: 48px; }
+  @media (max-width: 900px) {
+    .hero-grid, .split { grid-template-columns: 1fr; }
+    .hero { padding-top: 48px; }
+    .app-card { max-width: 560px; }
+    .feature-grid { grid-template-columns: 1fr 1fr; }
+    .feature.wide { grid-column: span 2; }
+    .site-nav a:not(.nav-download) { display: none; }
   }
-
-  /* ── Ноутбуки и большие экраны ───────────────────────── */
-  @media (min-width: 1100px) {
-    :root { --max: 980px; --base: 18px; }
-    section { margin-top: 24px; padding: 32px 40px; }
-    .summary { padding: 24px; }
-  }
-
-  /* ── Телевизоры: читаемость с дивана ─────────────────── */
-  @media (min-width: 1600px) {
-    :root { --max: 1180px; --base: 22px; }
-    header.hero { padding-top: 64px; }
-    h1 { font-size: 56px; }
-    .brand-name { font-size: 22px; }
-    .logo { width: 48px; height: 48px; }
-    .updated { font-size: 18px; }
-    .chip { font-size: 19px; padding: 12px 24px; }
-    section { padding: 40px 48px; border-radius: 24px; }
-    section h2 { font-size: 28px; gap: 16px; }
-    .note, .perm span { font-size: 19px; }
-    .to-top { font-size: 19px; }
-    a:focus-visible { outline-width: 5px; }
+  @media (max-width: 560px) {
+    :root { --pad: 16px; }
+    h1 { letter-spacing: -1.4px; }
+    .lead { font-size: 16.5px; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .feature.wide { grid-column: span 1; }
+    .actions .btn { width: 100%; }
+    .legal-card, .install-card, .data-card { padding: 19px; }
+    .header-inner { min-height: 62px; }
+    .brand img { width: 34px; height: 34px; }
   }
 </style>
 </head>
 <body>
-<div class="wrap">
+<a class="skip" href="#main">Перейти к содержимому</a>
 
-  <header class="hero">
-    <div class="brand">
-      <span class="logo" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-          <path d="M9 7.5v9l7.5-4.5L9 7.5z" fill="#fff"/>
-        </svg>
-      </span>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="./" aria-label="M Tube — главная">
+      <img src="assets/icon.png" alt="" width="38" height="38">
       <span class="brand-name">M Tube</span>
-    </div>
-
-    <h1>Политика конфиденциальности</h1>
-    <div class="updated">Действует с 18 ноября 2026 г.</div>
-  </header>
-
-  <nav class="toc" aria-label="Разделы политики">
-    <a class="chip" href="#who">Кто мы</a>
-    <a class="chip" href="#data">Данные</a>
-    <a class="chip" href="#permissions">Разрешения</a>
-    <a class="chip" href="#third">Третьи лица</a>
-    <a class="chip" href="#storage">Хранение</a>
-    <a class="chip" href="#kids">Дети</a>
-    <a class="chip" href="#contacts">Контакты</a>
-  </nav>
-
-  <div class="summary">
-    <p><strong>Коротко:</strong> приложение не требует регистрации и не собирает ваши
-    персональные данные. Мы не имеем доступа к вашим аккаунтам, перепискам, контактам,
-    фотографиям и геолокации.</p>
+    </a>
+    <nav class="site-nav" aria-label="Навигация">
+      <a href="#features">Возможности</a>
+      <a href="#first-run">Первый запуск</a>
+      <a href="#data">Данные</a>
+      <a href="privacy.html">Конфиденциальность</a>
+      <a class="nav-download" href="apk/MTube-latest.apk">Скачать APK</a>
+    </nav>
   </div>
+</header>
 
-  <main>
-
-    <section id="who">
-      <h2>Кто мы</h2>
-      <p>Приложение «M Tube» разработано и поддерживается <strong>Safarali Group</strong>
-      (далее «мы», «разработчик»). Контакт для любых вопросов по обработке данных:
-      Telegram <a href="https://t.me/Safaraligroup">@Safaraligroup</a>.</p>
-    </section>
-
-    <section id="data">
-      <h2>Какие данные обрабатываются</h2>
-      <p><strong>Вы вводите сами.</strong> Аккаунт в приложении не требуется. Если вы
-      входите в аккаунт Google внутри встроенного окна YouTube, эти данные обрабатываются
-      Google по его правилам; мы к ним доступа не имеем и не храним.</p>
-      <p><strong>Технические данные страницы.</strong> Приложение открывает YouTube во
-      встроенном браузере. Сайт может сохранять на вашем устройстве cookie, кэш и
-      локальное хранилище, как в обычном браузере. Этими данными управляет Google.
-      Мы не передаём их третьим лицам и не имеем к ним доступа.</p>
-      <p><strong>Соединение.</strong> Для доступа к YouTube приложение использует
-      прокси-серверы. Через них проходит сетевой трафик, необходимый для работы
-      приложения. Мы не ведём журналов содержимого ваших запросов, не сохраняем историю
-      просмотров и не связываем трафик с вашей личностью.</p>
-      <p><strong>Реклама.</strong> В приложении показывается реклама через рекламную сеть
-      <strong>Яндекс Реклама (Yandex Mobile Ads)</strong>. Рекламная сеть может получать
-      обезличенные технические сведения об устройстве (модель, версия системы, язык,
-      рекламный идентификатор) для подбора и показа объявлений. Подробнее:
-      <a href="https://yandex.ru/legal/confidential/">политика конфиденциальности
-      Яндекса</a>. Мы не передаём рекламной сети ваше имя, телефон, почту или иные
-      сведения, которые позволяют вас идентифицировать.</p>
-      <div class="note"><strong>Мы не собираем:</strong> ФИО, телефон, e-mail, контакты,
-      SMS, фото и видео из галереи, геолокацию, список установленных приложений,
-      историю просмотров.</div>
-    </section>
-
-    <section id="permissions">
-      <h2>Разрешения и зачем они</h2>
-      <div class="grid2">
-        <div class="perm"><b>Интернет</b><span>Загрузка видео и страниц YouTube.</span></div>
-        <div class="perm"><b>Уведомления</b><span>Кнопка «Остановить» для фонового воспроизведения.</span></div>
-        <div class="perm"><b>Работа в фоне</b><span>Звук не обрывается, когда экран выключен или приложение свёрнуто.</span></div>
+<main id="main">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Версия 3.34 · Android 8.0+</p>
+        <h1>YouTube<br><span>через прокси.</span></h1>
+        <p class="lead">M Tube сам находит рабочий сервер, открывает YouTube во встроенном окне и продолжает видео с того же места. Без ручной настройки.</p>
+        <div class="actions">
+          <a class="btn" href="apk/MTube-latest.apk">Скачать APK <small>~13,4 МБ</small></a>
+          <a class="btn ghost" href="#features">Что умеет</a>
+        </div>
+        <p class="meta">Постоянная ссылка на свежий APK · Google Play готовится · Неофициальный клиент YouTube</p>
       </div>
-    </section>
 
-    <section id="third">
-      <h2>Передача данных третьим лицам</h2>
-      <p>Мы не продаём и не передаём ваши персональные данные. Обработка происходит
-      только в объёме, необходимом для работы функций приложения, силами:</p>
-      <ul>
-        <li><strong>Google / YouTube</strong>: содержимое сайта и ваши действия на нём
-        регулируются <a href="https://policies.google.com/privacy">политикой Google</a>;</li>
-        <li><strong>Яндекс</strong>: показ рекламы;</li>
-        <li><strong>прокси-серверы</strong>: только для доставки сетевых запросов.</li>
-      </ul>
-    </section>
+      <div class="app-card" aria-label="Как выглядит работа M Tube">
+        <div class="app-card-top">
+          <span class="mini-logo" aria-hidden="true">▶</span>
+          <div><b>M Tube</b><span>YouTube через прокси</span></div>
+          <span class="pill">SOCKS5</span>
+        </div>
+        <div class="screen">
+          <div class="screen-play" aria-hidden="true">▶</div>
+          <div class="screen-caption"><b>Видео открывается</b><span>Соединение проверено</span></div>
+        </div>
+        <div class="app-row"><span aria-hidden="true">◈</span> <span><strong>Автоподбор</strong> сервера</span><span class="ok">готово</span></div>
+        <div class="app-row"><span aria-hidden="true">◷</span> <span><strong>Продолжение</strong> с места</span><span class="ok">включено</span></div>
+      </div>
+    </div>
+  </section>
 
-    <section id="storage">
-      <h2>Хранение и удаление</h2>
-      <p>Мы не храним ваши данные на своих серверах. Все локальные данные (cookie, кэш,
-      настройки) хранятся только на вашем устройстве. Удалить их можно в любой момент:
-      «Настройки телефона → Приложения → M Tube → Память → Очистить данные» или
-      удалением приложения.</p>
-    </section>
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Возможности</p>
+        <h2>Всё, что нужно для просмотра</h2>
+        <p>Сайт описывает ту же версию 3.34, которая сейчас доступна для установки.</p>
+      </div>
 
-    <section id="kids">
-      <h2>Дети</h2>
-      <p>Приложение не предназначено для детей младше 13 лет и не собирает данные о них
-      осознанно. Если вы считаете, что ребёнок пользуется приложением, вы можете удалить
-      данные приложения на устройстве.</p>
-    </section>
+      <div class="feature-grid">
+        <article class="feature">
+          <div class="ico" aria-hidden="true">◈</div>
+          <h3>Автоподбор сервера</h3>
+          <p>Приложение проверяет прокси в несколько этапов, выбирает самый быстрый и добирает остальные в фоне.</p>
+        </article>
+        <article class="feature">
+          <div class="ico" aria-hidden="true">⌁</div>
+          <h3>Только SOCKS5</h3>
+          <p>Переключатель в настройках исключает HTTP-прокси и HTTP-списки. Подходит, если нужен строгий SOCKS5.</p>
+        </article>
+        <article class="feature">
+          <div class="ico" aria-hidden="true">▣</div>
+          <h3>Картинка в картинке</h3>
+          <p>Видео сворачивается в системное окно, если выйти из приложения во время просмотра.</p>
+        </article>
+        <article class="feature">
+          <div class="ico" aria-hidden="true">◷</div>
+          <h3>Продолжение с места</h3>
+          <p>M Tube запоминает позицию ролика и возвращает к ней после рекламы или следующего запуска.</p>
+        </article>
+        <article class="feature">
+          <div class="ico" aria-hidden="true">◇</div>
+          <h3>Свой прокси</h3>
+          <p>Можно вставить свой SOCKS5 или список адресов — приложение проверит их и выберет рабочий.</p>
+        </article>
+        <article class="feature">
+          <div class="ico" aria-hidden="true">◎</div>
+          <h3>Диагностика</h3>
+          <p>Готовый отчёт с версией, Android, WebView и состоянием соединения можно отправить в поддержку.</p>
+        </article>
+        <article class="feature wide">
+          <div class="ico" aria-hidden="true">↗</div>
+          <h3>Ссылки YouTube открываются в M Tube</h3>
+          <p>Клик по ссылке в браузере или кнопка «Поделиться» открывает видео через прокси приложения. Короткие ссылки youtu.be и плейлисты тоже поддерживаются.</p>
+        </article>
+        <article class="feature">
+          <div class="ico" aria-hidden="true">◐</div>
+          <h3>Фон и звук</h3>
+          <p>Звук продолжает играть при выключенном экране; в уведомлении есть пауза и остановка.</p>
+        </article>
+      </div>
+    </div>
+  </section>
 
-    <section>
-      <h2>Безопасность</h2>
-      <p>Соединение с сайтами выполняется по HTTPS. Мы принимаем разумные меры, чтобы
-      предотвратить несанкционированный доступ, однако ни один способ передачи данных
-      в интернете не является абсолютно безопасным.</p>
-    </section>
+  <section id="first-run">
+    <div class="wrap split">
+      <div class="legal-card">
+        <p class="kicker">Первый запуск</p>
+        <h3>Согласие обязательно</h3>
+        <p>Перед первым открытием YouTube приложение показывает Условия использования и Политику конфиденциальности. Пока вы не отметили согласие, WebView и прокси не запускаются.</p>
+        <p>Факт согласия хранится только на устройстве. Его можно отозвать, удалив данные приложения или само приложение.</p>
+        <div class="legal-links">
+          <a href="terms.html">Условия использования</a>
+          <a href="privacy.html">Политика конфиденциальности</a>
+        </div>
+        <div class="notice">M Tube — неофициальный клиент YouTube и не связано с Google LLC или YouTube.</div>
+      </div>
 
-    <section>
-      <h2>Изменения политики</h2>
-      <p>Мы можем обновлять эту политику. Актуальная версия всегда доступна по этому
-      адресу; дата вступления в силу указана в начале страницы.</p>
-    </section>
+      <div class="install-card">
+        <p class="kicker">Установка</p>
+        <h3>Три шага</h3>
+        <ol class="steps">
+          <li><b>Скачайте APK</b> по кнопке выше. Это подписанная сборка 3.34 (56).</li>
+          <li><b>Разрешите установку</b> из браузера или файлового менеджера, если Android спросит.</li>
+          <li><b>Откройте M Tube</b>, прочитайте условия, отметьте согласие и нажмите «Принимаю и продолжаю».</li>
+        </ol>
+        <div class="legal-links">
+          <a href="apk/MTube-latest.apk">Скачать последнюю версию</a>
+          <a href="version.json">version.json</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <section id="contacts">
-      <h2>Контакты</h2>
-      <p>По любым вопросам, связанным с конфиденциальностью, пишите в Telegram:
-      <a href="https://t.me/Safaraligroup">@Safaraligroup</a>.</p>
-    </section>
+  <section id="data">
+    <div class="wrap split">
+      <div class="data-card">
+        <p class="kicker">Конфиденциальность</p>
+        <h3>Коротко о данных</h3>
+        <ul class="data-list">
+          <li>Нет регистрации и сбора ФИО, телефона, почты, контактов и геолокации.</li>
+          <li>Реклама Яндекса может использовать рекламный идентификатор устройства.</li>
+          <li>Для доступа к YouTube используются прокси-серверы.</li>
+          <li>Настройки, кэш и факт согласия хранятся на устройстве.</li>
+        </ul>
+        <div class="data-actions">
+          <a class="btn ghost" href="privacy.html">Политика конфиденциальности</a>
+          <a class="btn ghost" href="terms.html">Условия</a>
+        </div>
+      </div>
 
-  </main>
+      <div class="install-card">
+        <p class="kicker">Связь</p>
+        <h3>Safarali Group</h3>
+        <p>Нашли ошибку, нужен другой сервер или есть пожелание? Напишите в Telegram — отвечаем быстро.</p>
+        <div class="legal-links">
+          <a href="https://t.me/Safaraligroup">@Safaraligroup</a>
+          <a href="apk/MTube-3.34.apk">APK 3.34</a>
+        </div>
+        <div class="notice">APK и AAB для Google Play готовятся из одного исходного кода. Публичная ссылка на APK всегда ведёт на последнюю версию.</div>
+      </div>
+    </div>
+  </section>
+</main>
 
-  <footer>
-    <div><span class="brand-inline">M Tube</span>, Safarali Group</div>
-    <div class="links"><a href="terms.html">Условия использования</a></div>
-    <a class="to-top" href="#top">Наверх</a>
-  </footer>
-
-</div>
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><img src="assets/icon.png" alt="" width="30" height="30"> M Tube</div>
+        <div class="footer-note">YouTube через прокси. Версия 3.34 (56) · Android 8.0+ · Safarali Group.</div>
+      </div>
+      <div class="footer-links">
+        <a href="#features">Возможности</a>
+        <a href="privacy.html">Конфиденциальность</a>
+        <a href="terms.html">Условия</a>
+        <a href="https://t.me/Safaraligroup">Telegram</a>
+      </div>
+    </div>
+    <div class="footer-note">M Tube не является официальным приложением YouTube и не связано с Google LLC. Все товарные знаки принадлежат их владельцам. Сайт использует только необходимые технические данные; для работы APK используются прокси-серверы и реклама Яндекса.</div>
+  </div>
+</footer>
 </body>
 </html>

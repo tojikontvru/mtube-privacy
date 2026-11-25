@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#0b0e11">
 <meta name="color-scheme" content="dark">
 <meta name="description" content="Условия использования приложения M Tube: правила пользования, права и обязанности, ограничение ответственности.">
+<link rel="icon" href="assets/icon.png" type="image/png">
 <title>Условия использования | M Tube</title>
 <style>
   * { box-sizing: border-box; }
@@ -50,7 +51,9 @@
   header.hero { padding: 32px 0 8px; }
   .brand {
     display: inline-flex; align-items: center; gap: 12px;
+    color: var(--text); text-decoration: none;
   }
+  .brand:hover { text-decoration: none; }
   .logo {
     width: 40px; height: 40px; border-radius: 50%;
     display: grid; place-items: center;
@@ -190,17 +193,17 @@
 <div class="wrap">
 
   <header class="hero">
-    <div class="brand">
+    <a class="brand" href="./">
       <span class="logo" aria-hidden="true">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <path d="M9 7.5v9l7.5-4.5L9 7.5z" fill="#fff"/>
         </svg>
       </span>
       <span class="brand-name">M Tube</span>
-    </div>
+    </a>
 
     <h1>Условия использования</h1>
-    <div class="updated">Действуют с 18 ноября 2026 г.</div>
+    <div class="updated">Действуют с 25 ноября 2026 г. · версия 3.34</div>
   </header>
 
   <nav class="toc" aria-label="Разделы условий">
@@ -224,9 +227,14 @@
 
     <section id="accept">
       <h2>Принятие условий</h2>
-      <p>Устанавливая, открывая или используя приложение «M Tube», вы подтверждаете, что
-      прочитали и принимаете настоящие Условия использования. Если вы не согласны,
-      не используйте приложение.</p>
+      <p>При первом запуске приложение показывает экран согласия. Чтобы открыть
+      YouTube, нужно отметить, что вы прочитали и принимаете настоящие Условия
+      использования и <a href="privacy.html">Политику конфиденциальности</a>.
+      Если вы не согласны, нажмите «Выйти»: приложение закроется и не будет
+      подключаться к сети.</p>
+      <p>Устанавливая, открывая или используя приложение «M Tube» после принятия,
+      вы подтверждаете, что ознакомились с настоящими Условиями. Если вы не
+      согласны, не используйте приложение.</p>
     </section>
 
     <section id="about">
@@ -304,7 +312,7 @@
 
   <footer>
     <div><span class="brand-inline">M Tube</span>, Safarali Group</div>
-    <div class="links"><a href="./">Политика конфиденциальности</a></div>
+    <div class="links"><a href="./">Главная</a> · <a href="privacy.html">Политика конфиденциальности</a></div>
     <a class="to-top" href="#top">Наверх</a>
   </footer>
 
