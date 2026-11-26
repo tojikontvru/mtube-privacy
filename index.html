@@ -3,482 +3,424 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0b0e11">
+<meta name="theme-color" content="#07080a">
 <meta name="color-scheme" content="dark">
-<meta name="description" content="M Tube — YouTube через прокси на Android. Автоподбор сервера, режим только SOCKS5, картинка в картинке и продолжение с места. Скачать APK.">
+<meta name="description" content="M Tube — YouTube через прокси на Android. Автоподбор сервера, режим только SOCKS5, картинка в картинке и продолжение с места. Скачать APK 3.34.">
+<link rel="canonical" href="https://tojikontvru.github.io/mtube-privacy/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="M Tube — YouTube через прокси">
+<meta property="og:description" content="Автоподбор сервера, только SOCKS5, PiP и продолжение с места. APK 3.34 для Android.">
+<meta property="og:url" content="https://tojikontvru.github.io/mtube-privacy/">
+<meta property="og:image" content="https://tojikontvru.github.io/mtube-privacy/assets/icon.png">
 <link rel="icon" href="assets/icon.png" type="image/png">
+<link rel="preload" href="assets/fonts/manrope-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css?v=58">
 <title>M Tube — YouTube через прокси | Safarali Group</title>
-<style>
-  * { box-sizing: border-box; }
-  :root {
-    --bg: #0b0e11;
-    --bg-soft: #10151a;
-    --card: #151b22;
-    --card-2: #1a212a;
-    --stroke: #242e39;
-    --text: #e8eef5;
-    --muted: #93a6b8;
-    --accent: #ff4d4f;
-    --accent-2: #ff8a5c;
-    --accent-soft: rgba(255, 77, 79, .12);
-    --green: #45d483;
-    --radius: 22px;
-    --radius-sm: 14px;
-    --max: 1120px;
-    --pad: 20px;
-  }
-  html { scroll-behavior: smooth; }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    *, *::before, *::after { animation: none !important; transition: none !important; }
-  }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  a:focus-visible, button:focus-visible {
-    outline: 3px solid var(--accent-2);
-    outline-offset: 3px;
-    border-radius: 8px;
-  }
-  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
-  .skip {
-    position: absolute; left: -9999px; top: 0;
-    background: var(--accent); color: #fff; padding: 10px 16px; z-index: 100;
-  }
-  .skip:focus { left: 12px; top: 12px; }
-
-  /* ── Шапка ───────────────────────────────────────────── */
-  .site-header {
-    position: sticky; top: 0; z-index: 20;
-    background: rgba(11, 14, 17, .88);
-    border-bottom: 1px solid rgba(255, 255, 255, .06);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-  }
-  .header-inner {
-    min-height: 70px;
-    display: flex; align-items: center; justify-content: space-between; gap: 18px;
-  }
-  .brand { display: inline-flex; align-items: center; gap: 11px; color: var(--text); }
-  .brand:hover { text-decoration: none; }
-  .brand img {
-    width: 38px; height: 38px; border-radius: 12px;
-    background: #000; object-fit: contain;
-  }
-  .brand-name { font-weight: 700; letter-spacing: .2px; }
-  .site-nav { display: flex; align-items: center; gap: 22px; }
-  .site-nav a { color: var(--muted); font-size: 14.5px; }
-  .site-nav a:hover { color: var(--text); text-decoration: none; }
-  .nav-download {
-    padding: 9px 16px; border-radius: 999px;
-    background: var(--accent); color: #fff !important;
-    font-weight: 700; font-size: 14px;
-  }
-  .nav-download:hover { background: #e53b3e; }
-
-  /* ── Первый экран ────────────────────────────────────── */
-  .hero { padding: 72px 0 56px; overflow: hidden; }
-  .hero-grid {
-    display: grid; grid-template-columns: 1.15fr .85fr;
-    gap: 48px; align-items: center;
-  }
-  .eyebrow {
-    display: inline-flex; align-items: center; gap: 9px;
-    margin: 0 0 18px; padding: 7px 13px;
-    border: 1px solid var(--stroke); border-radius: 999px;
-    background: var(--bg-soft); color: var(--muted);
-    font-size: 13px; font-weight: 600;
-  }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px rgba(69, 212, 131, .5); }
-  h1 {
-    margin: 0 0 20px;
-    font-size: clamp(40px, 6.3vw, 74px);
-    line-height: 1.02;
-    letter-spacing: -2.2px;
-    font-weight: 800;
-  }
-  h1 span {
-    background: linear-gradient(100deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .lead { max-width: 560px; margin: 0 0 28px; color: var(--muted); font-size: 18px; }
-  .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-    min-height: 52px; padding: 0 22px;
-    border-radius: 15px; border: 1px solid transparent;
-    background: var(--accent); color: #fff;
-    font-weight: 700; font-size: 16px;
-    transition: transform .15s, background .2s, border-color .2s;
-  }
-  .btn:hover { text-decoration: none; background: #e53b3e; transform: translateY(-1px); }
-  .btn:active { transform: translateY(0); }
-  .btn small { font-weight: 500; opacity: .8; font-size: 12px; }
-  .btn.ghost { background: transparent; border-color: var(--stroke); color: var(--text); }
-  .btn.ghost:hover { background: var(--card); border-color: #3a4654; }
-  .meta { margin: 16px 0 0; color: var(--text-muted, #5f7385); font-size: 13px; }
-
-  /* ── Карточка-витрина ────────────────────────────────── */
-  .app-card {
-    position: relative;
-    padding: 18px;
-    background: linear-gradient(160deg, #1a212a, #10151a 70%);
-    border: 1px solid var(--stroke);
-    border-radius: 26px;
-    box-shadow: 0 24px 70px rgba(0, 0, 0, .38);
-  }
-  .app-card::before {
-    content: ""; position: absolute; inset: -1px; z-index: -1;
-    border-radius: 27px;
-    background: linear-gradient(140deg, rgba(255, 77, 79, .5), transparent 42%);
-    opacity: .55;
-  }
-  .app-card-top { display: flex; align-items: center; gap: 11px; margin-bottom: 16px; }
-  .mini-logo {
-    width: 38px; height: 38px; border-radius: 12px;
-    display: grid; place-items: center;
-    background: var(--accent); color: #fff; font-size: 15px;
-  }
-  .app-card-top b { display: block; font-size: 14.5px; }
-  .app-card-top span { display: block; color: var(--muted); font-size: 11.5px; }
-  .pill {
-    margin-left: auto; padding: 5px 10px;
-    border-radius: 999px; border: 1px solid rgba(69, 212, 131, .35);
-    background: rgba(69, 212, 131, .1); color: var(--green);
-    font-size: 10px; font-weight: 800; letter-spacing: .7px;
-  }
-  .screen {
-    position: relative; aspect-ratio: 16 / 10;
-    border-radius: 16px; overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, .07);
-    background:
-      radial-gradient(120% 100% at 15% 0%, rgba(255, 77, 79, .22), transparent 48%),
-      linear-gradient(145deg, #202731, #0c1014 72%);
-  }
-  .screen::after {
-    content: ""; position: absolute; inset: 0;
-    background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, .55));
-  }
-  .screen-play {
-    position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%);
-    width: 58px; height: 58px; border-radius: 50%;
-    display: grid; place-items: center;
-    background: rgba(255, 255, 255, .12);
-    border: 1px solid rgba(255, 255, 255, .24);
-    color: #fff; font-size: 19px; padding-left: 4px;
-    backdrop-filter: blur(5px);
-  }
-  .screen-caption { position: absolute; left: 14px; bottom: 12px; z-index: 1; }
-  .screen-caption b { display: block; font-size: 12px; }
-  .screen-caption span { display: block; color: var(--muted); font-size: 10px; }
-  .app-row {
-    display: flex; align-items: center; gap: 9px;
-    margin-top: 10px; padding: 10px 12px;
-    background: rgba(255, 255, 255, .035);
-    border: 1px solid rgba(255, 255, 255, .06);
-    border-radius: 12px;
-    color: var(--muted); font-size: 12px;
-  }
-  .app-row strong { color: var(--text); font-weight: 600; }
-  .app-row .ok { margin-left: auto; color: var(--green); font-weight: 700; }
-
-  /* ── Секции ──────────────────────────────────────────── */
-  section { padding: 56px 0; }
-  .section-head { max-width: 700px; margin-bottom: 28px; }
-  .kicker {
-    margin: 0 0 8px; color: var(--accent); font-size: 12px;
-    font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
-  }
-  h2 {
-    margin: 0; font-size: clamp(28px, 4vw, 40px);
-    line-height: 1.14; letter-spacing: -1px;
-  }
-  .section-head p { margin: 12px 0 0; color: var(--muted); font-size: 16.5px; }
-
-  .feature-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
-  }
-  .feature {
-    padding: 20px;
-    background: var(--card);
-    border: 1px solid var(--stroke);
-    border-radius: var(--radius);
-  }
-  .feature .ico {
-    width: 42px; height: 42px; margin-bottom: 14px;
-    display: grid; place-items: center;
-    border-radius: 13px;
-    background: var(--accent-soft);
-    border: 1px solid rgba(255, 77, 79, .22);
-    color: var(--accent); font-size: 18px;
-  }
-  .feature h3 { margin: 0 0 6px; font-size: 16.5px; }
-  .feature p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
-  .feature.wide { grid-column: span 2; }
-  .feature.wide p { max-width: 620px; }
-
-  .split {
-    display: grid; grid-template-columns: .9fr 1.1fr;
-    gap: 28px; align-items: start;
-  }
-  .legal-card, .install-card, .data-card {
-    background: var(--card);
-    border: 1px solid var(--stroke);
-    border-radius: var(--radius);
-    padding: 24px;
-  }
-  .legal-card h3, .install-card h3, .data-card h3 { margin: 0 0 10px; font-size: 20px; }
-  .legal-card p, .install-card p, .data-card p { color: var(--muted); font-size: 14.5px; }
-  .legal-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
-  .legal-links a {
-    padding: 9px 13px; border-radius: 10px;
-    border: 1px solid var(--stroke); background: var(--card-2);
-    color: var(--text); font-size: 13.5px;
-  }
-  .legal-links a:hover { border-color: var(--accent); text-decoration: none; }
-  .steps { counter-reset: step; display: grid; gap: 12px; margin: 16px 0 0; padding: 0; list-style: none; }
-  .steps li { position: relative; padding-left: 42px; color: var(--muted); font-size: 14.5px; }
-  .steps li::before {
-    counter-increment: step; content: counter(step);
-    position: absolute; left: 0; top: -2px;
-    width: 29px; height: 29px; border-radius: 50%;
-    display: grid; place-items: center;
-    background: var(--accent-soft); border: 1px solid rgba(255, 77, 79, .3);
-    color: var(--accent); font-weight: 800; font-size: 12px;
-  }
-  .steps b { color: var(--text); }
-  .data-list { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 9px; }
-  .data-list li { color: var(--muted); font-size: 14.5px; padding-left: 24px; position: relative; }
-  .data-list li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 800; }
-  .data-actions { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
-
-  .notice {
-    margin-top: 18px; padding: 14px 16px;
-    border-left: 3px solid var(--accent);
-    border-radius: 10px;
-    background: var(--card-2);
-    color: var(--muted); font-size: 13.5px;
-  }
-
-  footer {
-    margin-top: 20px; padding: 34px 0 48px;
-    border-top: 1px solid var(--stroke);
-    color: var(--muted); font-size: 13.5px;
-  }
-  .footer-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: flex-start; }
-  .footer-brand { display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 700; }
-  .footer-brand img { width: 30px; height: 30px; border-radius: 9px; }
-  .footer-links { display: flex; flex-wrap: wrap; gap: 16px; }
-  .footer-links a { color: var(--muted); }
-  .footer-links a:hover { color: var(--accent); text-decoration: none; }
-  .footer-note { margin-top: 18px; max-width: 760px; color: #5f7385; font-size: 12.5px; }
-
-  @media (max-width: 900px) {
-    .hero-grid, .split { grid-template-columns: 1fr; }
-    .hero { padding-top: 48px; }
-    .app-card { max-width: 560px; }
-    .feature-grid { grid-template-columns: 1fr 1fr; }
-    .feature.wide { grid-column: span 2; }
-    .site-nav a:not(.nav-download) { display: none; }
-  }
-  @media (max-width: 560px) {
-    :root { --pad: 16px; }
-    h1 { letter-spacing: -1.4px; }
-    .lead { font-size: 16.5px; }
-    .feature-grid { grid-template-columns: 1fr; }
-    .feature.wide { grid-column: span 1; }
-    .actions .btn { width: 100%; }
-    .legal-card, .install-card, .data-card { padding: 19px; }
-    .header-inner { min-height: 62px; }
-    .brand img { width: 34px; height: 34px; }
-  }
-</style>
 </head>
 <body>
 <a class="skip" href="#main">Перейти к содержимому</a>
 
 <header class="site-header">
-  <div class="wrap header-inner">
+  <div class="shell header-inner">
     <a class="brand" href="./" aria-label="M Tube — главная">
       <img src="assets/icon.png" alt="" width="38" height="38">
-      <span class="brand-name">M Tube</span>
+      <span class="brand-word">M Tube <span>/ Safarali</span></span>
     </a>
     <nav class="site-nav" aria-label="Навигация">
       <a href="#features">Возможности</a>
-      <a href="#first-run">Первый запуск</a>
+      <a href="#first-run">Согласие</a>
+      <a href="#install">Установка</a>
       <a href="#data">Данные</a>
-      <a href="privacy.html">Конфиденциальность</a>
-      <a class="nav-download" href="apk/MTube-latest.apk">Скачать APK</a>
+      <a class="nav-cta" href="apk/MTube-latest.apk">
+        Скачать APK
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5M5 20h14"/></svg>
+      </a>
     </nav>
   </div>
 </header>
 
 <main id="main">
   <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Версия 3.34 · Android 8.0+</p>
-        <h1>YouTube<br><span>через прокси.</span></h1>
-        <p class="lead">M Tube сам находит рабочий сервер, открывает YouTube во встроенном окне и продолжает видео с того же места. Без ручной настройки.</p>
-        <div class="actions">
-          <a class="btn" href="apk/MTube-latest.apk">Скачать APK <small>~13,4 МБ</small></a>
-          <a class="btn ghost" href="#features">Что умеет</a>
+    <div class="shell hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Версия 3.34 <span class="slash">/</span> Android 8.0+</p>
+        <h1>YouTube.<br><span class="grad">Без лишнего.</span></h1>
+        <p class="lede">M&nbsp;Tube находит рабочий прокси, открывает YouTube и продолжает видео с того же места. Без ручной настройки и лишних движений.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="apk/MTube-latest.apk">
+            Скачать APK
+            <small>~13,4 МБ</small>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5M5 20h14"/></svg>
+          </a>
+          <a class="btn ghost" href="#features">
+            Что умеет
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m0 0-5-5m5 5-5 5"/></svg>
+          </a>
         </div>
-        <p class="meta">Постоянная ссылка на свежий APK · Google Play готовится · Неофициальный клиент YouTube</p>
+        <ul class="hero-proof">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
+            Без регистрации
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6l-7-3Z"/></svg>
+            Согласие до старта
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12h16M12 4v16"/></svg>
+            Google Play готовится
+          </li>
+        </ul>
       </div>
 
-      <div class="app-card" aria-label="Как выглядит работа M Tube">
-        <div class="app-card-top">
-          <span class="mini-logo" aria-hidden="true">▶</span>
-          <div><b>M Tube</b><span>YouTube через прокси</span></div>
-          <span class="pill">SOCKS5</span>
+      <div class="hero-visual">
+        <div class="device-wrap">
+          <span class="badge-float badge-pip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><rect x="12" y="11" width="6" height="5" rx="1"/></svg>
+            PiP
+          </span>
+          <span class="badge-float badge-resume">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>
+            Продолжение
+          </span>
+
+          <div class="device" role="img" aria-label="Предпросмотр интерфейса M Tube: видео, подключение SOCKS5 и режим только SOCKS5">
+            <div class="device-inner">
+              <div class="device-bar">
+                <img src="assets/icon.png" alt="" width="30" height="30">
+                <div>
+                  <b>M Tube</b>
+                  <span>YouTube через прокси</span>
+                </div>
+                <span class="live">SOCKS5</span>
+              </div>
+
+              <div class="player">
+                <span class="player-button" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5Z"/></svg>
+                </span>
+                <div class="player-caption"><b>Видео продолжается</b><span>Позиция сохранена</span></div>
+                <span class="player-time">12:48</span>
+                <div class="progress" aria-hidden="true"><span></span></div>
+              </div>
+
+              <div class="server-card">
+                <div class="server-head"><span class="dot" aria-hidden="true"></span> Соединение защищено <span class="latency">42 мс</span></div>
+                <div class="server-row"><b>SOCKS5</b><span>сервер проверен</span><span class="ok">работает</span></div>
+                <div class="signal" aria-hidden="true">
+                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+              </div>
+
+              <div class="socks-row">
+                <div><strong>Только SOCKS5</strong><span>HTTP исключён</span></div>
+                <span class="switch-mini" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="screen">
-          <div class="screen-play" aria-hidden="true">▶</div>
-          <div class="screen-caption"><b>Видео открывается</b><span>Соединение проверено</span></div>
-        </div>
-        <div class="app-row"><span aria-hidden="true">◈</span> <span><strong>Автоподбор</strong> сервера</span><span class="ok">готово</span></div>
-        <div class="app-row"><span aria-hidden="true">◷</span> <span><strong>Продолжение</strong> с места</span><span class="ok">включено</span></div>
       </div>
     </div>
   </section>
 
-  <section id="features">
-    <div class="wrap">
+  <section class="section section-line" id="features">
+    <div class="shell">
       <div class="section-head">
         <p class="kicker">Возможности</p>
-        <h2>Всё, что нужно для просмотра</h2>
-        <p>Сайт описывает ту же версию 3.34, которая сейчас доступна для установки.</p>
+        <h2>Сделано, чтобы просто смотреть.</h2>
+        <p>Никаких ручных списков и лишних экранов. M&nbsp;Tube сам решает задачу соединения, а вы смотрите видео.</p>
       </div>
 
-      <div class="feature-grid">
-        <article class="feature">
-          <div class="ico" aria-hidden="true">◈</div>
-          <h3>Автоподбор сервера</h3>
-          <p>Приложение проверяет прокси в несколько этапов, выбирает самый быстрый и добирает остальные в фоне.</p>
-        </article>
-        <article class="feature">
-          <div class="ico" aria-hidden="true">⌁</div>
+      <div class="bento">
+        <article class="card span-7 card-socks">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <div class="card-kicker">Соединение</div>
           <h3>Только SOCKS5</h3>
-          <p>Переключатель в настройках исключает HTTP-прокси и HTTP-списки. Подходит, если нужен строгий SOCKS5.</p>
+          <p>Один переключатель — и в работе остаются только SOCKS5-серверы. HTTP-прокси и HTTP-списки полностью исключены.</p>
+          <div class="toggle-demo">
+            <span><strong>Только SOCKS5</strong>HTTP исключён</span>
+            <span class="on">ON</span>
+            <span class="switch" aria-hidden="true"></span>
+          </div>
         </article>
-        <article class="feature">
-          <div class="ico" aria-hidden="true">▣</div>
+
+        <article class="card span-5">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>
+          </div>
+          <div class="card-kicker">Автоподбор</div>
+          <h3>42 мс до YouTube</h3>
+          <p>Проверка идёт по лёгкому адресу и в несколько этапов. В работу попадают только живые серверы.</p>
+          <div class="speed-demo">
+            <b>42</b><span>мс</span>
+            <div class="signal" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="speed-meta"><span>проверено <b>24</b></span><span>выбран <b>лучший</b></span></div>
+        </article>
+
+        <article class="card span-4">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><rect x="12" y="11" width="6" height="5" rx="1"/></svg>
+          </div>
+          <div class="card-kicker">Плеер</div>
           <h3>Картинка в картинке</h3>
-          <p>Видео сворачивается в системное окно, если выйти из приложения во время просмотра.</p>
+          <p>Вышли из приложения — видео осталось на экране.</p>
+          <div class="pip-demo" aria-hidden="true">
+            <div class="pip-line"></div><div class="pip-line"></div><div class="pip-line"></div>
+            <div class="pip-window"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5Z"/></svg></div>
+          </div>
         </article>
-        <article class="feature">
-          <div class="ico" aria-hidden="true">◷</div>
+
+        <article class="card span-4">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>
+          </div>
+          <div class="card-kicker">Просмотр</div>
           <h3>Продолжение с места</h3>
-          <p>M Tube запоминает позицию ролика и возвращает к ней после рекламы или следующего запуска.</p>
+          <p>Позиция ролика сохраняется и возвращается после рекламы.</p>
+          <div class="resume-demo" aria-hidden="true">
+            <div class="resume-bar"><span></span></div>
+            <div class="resume-meta"><span><b>12:48</b> / 18:30</span><span>продолжить</span></div>
+          </div>
         </article>
-        <article class="feature">
-          <div class="ico" aria-hidden="true">◇</div>
+
+        <article class="card span-4">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 4l-4 16"/></svg>
+          </div>
+          <div class="card-kicker">Гибкость</div>
           <h3>Свой прокси</h3>
-          <p>Можно вставить свой SOCKS5 или список адресов — приложение проверит их и выберет рабочий.</p>
+          <p>Вставьте адрес или список — приложение проверит и выберет рабочий.</p>
+          <div class="code-demo" aria-hidden="true"><span>socks5://</span>127.0.0.1:1080 <em>// local</em></div>
         </article>
-        <article class="feature">
-          <div class="ico" aria-hidden="true">◎</div>
-          <h3>Диагностика</h3>
-          <p>Готовый отчёт с версией, Android, WebView и состоянием соединения можно отправить в поддержку.</p>
-        </article>
-        <article class="feature wide">
-          <div class="ico" aria-hidden="true">↗</div>
-          <h3>Ссылки YouTube открываются в M Tube</h3>
-          <p>Клик по ссылке в браузере или кнопка «Поделиться» открывает видео через прокси приложения. Короткие ссылки youtu.be и плейлисты тоже поддерживаются.</p>
-        </article>
-        <article class="feature">
-          <div class="ico" aria-hidden="true">◐</div>
-          <h3>Фон и звук</h3>
-          <p>Звук продолжает играть при выключенном экране; в уведомлении есть пауза и остановка.</p>
+
+        <article class="card span-12">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>
+          </div>
+          <div class="card-kicker">Поддержка</div>
+          <h3>Диагностика без догадок</h3>
+          <p>Один отчёт с версией, Android, WebView и состоянием соединения. Его можно сразу отправить разработчику.</p>
+          <div class="diag-demo" aria-hidden="true">
+            <div class="diag-line"><span>Устройство</span><b>Android</b></div>
+            <div class="diag-line"><span>Прокси</span><b class="ok">SOCKS5 · 42 мс</b></div>
+            <div class="diag-line"><span>WebView</span><b>готов</b></div>
+            <div class="diag-line"><span>Согласие</span><b class="ok">принято</b></div>
+          </div>
         </article>
       </div>
     </div>
   </section>
 
-  <section id="first-run">
-    <div class="wrap split">
-      <div class="legal-card">
+  <section class="section" id="first-run">
+    <div class="shell consent-layout">
+      <div class="consent-copy">
         <p class="kicker">Первый запуск</p>
-        <h3>Согласие обязательно</h3>
-        <p>Перед первым открытием YouTube приложение показывает Условия использования и Политику конфиденциальности. Пока вы не отметили согласие, WebView и прокси не запускаются.</p>
-        <p>Факт согласия хранится только на устройстве. Его можно отозвать, удалив данные приложения или само приложение.</p>
-        <div class="legal-links">
-          <a href="terms.html">Условия использования</a>
-          <a href="privacy.html">Политика конфиденциальности</a>
+        <h2>Согласие до первого видео.</h2>
+        <p>Перед началом M&nbsp;Tube показывает Условия использования и Политику конфиденциальности. Пока вы не приняли документы, приложение не открывает YouTube и не подбирает прокси.</p>
+        <ul class="consent-points">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
+            Без галочки кнопка продолжения неактивна
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
+            Согласие хранится только на устройстве
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
+            «Выйти» закрывает приложение без подключения
+          </li>
+        </ul>
+        <div class="consent-links">
+          <a href="terms.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 3h9l4 4v14H6V3Z"/><path d="M14 3v5h5"/></svg>
+            Условия
+          </a>
+          <a href="privacy.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6l-7-3Z"/></svg>
+            Политика
+          </a>
         </div>
-        <div class="notice">M Tube — неофициальный клиент YouTube и не связано с Google LLC или YouTube.</div>
       </div>
 
-      <div class="install-card">
+      <div class="consent-card" aria-label="Предпросмотр экрана согласия">
+        <div class="consent-shield">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <h3>Перед началом</h3>
+        <p>Прочитайте и примите документы, чтобы открыть YouTube.</p>
+        <div class="doc-list">
+          <a class="doc-row" href="terms.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 3h9l4 4v14H6V3Z"/><path d="M14 3v5h5"/></svg>
+            Условия использования
+            <span class="arrow">→</span>
+          </a>
+          <a class="doc-row" href="privacy.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6l-7-3Z"/></svg>
+            Политика конфиденциальности
+            <span class="arrow">→</span>
+          </a>
+        </div>
+        <div class="check-demo"><span class="fake-check" aria-hidden="true">✓</span> Я прочитал(а) и принимаю Условия и Политику конфиденциальности</div>
+        <div class="consent-btn">Принимаю и продолжаю</div>
+        <small class="consent-note">Без согласия WebView и прокси не запускаются</small>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-line" id="install">
+    <div class="shell">
+      <div class="section-head">
         <p class="kicker">Установка</p>
-        <h3>Три шага</h3>
-        <ol class="steps">
-          <li><b>Скачайте APK</b> по кнопке выше. Это подписанная сборка 3.34 (56).</li>
-          <li><b>Разрешите установку</b> из браузера или файлового менеджера, если Android спросит.</li>
-          <li><b>Откройте M Tube</b>, прочитайте условия, отметьте согласие и нажмите «Принимаю и продолжаю».</li>
-        </ol>
-        <div class="legal-links">
-          <a href="apk/MTube-latest.apk">Скачать последнюю версию</a>
+        <h2>Одна минута до просмотра.</h2>
+        <p>Никаких аккаунтов, подписок и дополнительных приложений.</p>
+      </div>
+      <div class="steps">
+        <article class="step">
+          <span class="step-num">01</span>
+          <h3>Скачайте APK</h3>
+          <p>Подписанная сборка <b>3.34 (56)</b> для Android 8.0 и новее.</p>
+        </article>
+        <article class="step">
+          <span class="step-num">02</span>
+          <h3>Разрешите установку</h3>
+          <p>Если Android спросит, разрешите установку из браузера или файлового менеджера.</p>
+        </article>
+        <article class="step">
+          <span class="step-num">03</span>
+          <h3>Примите документы</h3>
+          <p>Отметьте согласие на экране первого запуска — и нажмите <b>«Принимаю и продолжаю»</b>.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="data">
+    <div class="shell data-layout">
+      <div class="data-copy">
+        <p class="kicker">Конфиденциальность</p>
+        <h2>Данные остаются у вас.</h2>
+        <p>M&nbsp;Tube не требует регистрации и не собирает персональные данные. Настройки, кэш и факт согласия живут на устройстве.</p>
+        <div class="data-tags">
+          <span class="tag green">без регистрации</span>
+          <span class="tag">локальные настройки</span>
+          <span class="tag">прозрачная реклама</span>
+        </div>
+        <div class="consent-links">
+          <a href="privacy.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6l-7-3Z"/></svg>
+            Политика
+          </a>
+          <a href="terms.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 3h9l4 4v14H6V3Z"/><path d="M14 3v5h5"/></svg>
+            Условия
+          </a>
+        </div>
+      </div>
+      <div class="data-grid">
+        <div class="data-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg>
+          <b>Без профиля</b>
+          <span>Не нужны имя, телефон, почта или аккаунт.</span>
+        </div>
+        <div class="data-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6l-7-3Z"/></svg>
+          <b>Локальное согласие</b>
+          <span>Факт принятия документов хранится только на устройстве.</span>
+        </div>
+        <div class="data-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 12h16M12 4v16"/></svg>
+          <b>Прокси для доступа</b>
+          <span>Сетевой трафик идёт через выбранный сервер.</span>
+        </div>
+        <div class="data-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 19V9m7 10V5m7 14v-7"/></svg>
+          <b>Реклама Яндекса</b>
+          <span>Может использовать рекламный идентификатор устройства.</span>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="data">
-    <div class="wrap split">
-      <div class="data-card">
-        <p class="kicker">Конфиденциальность</p>
-        <h3>Коротко о данных</h3>
-        <ul class="data-list">
-          <li>Нет регистрации и сбора ФИО, телефона, почты, контактов и геолокации.</li>
-          <li>Реклама Яндекса может использовать рекламный идентификатор устройства.</li>
-          <li>Для доступа к YouTube используются прокси-серверы.</li>
-          <li>Настройки, кэш и факт согласия хранятся на устройстве.</li>
-        </ul>
-        <div class="data-actions">
-          <a class="btn ghost" href="privacy.html">Политика конфиденциальности</a>
-          <a class="btn ghost" href="terms.html">Условия</a>
-        </div>
+  <section class="section section-line" id="faq">
+    <div class="shell">
+      <div class="section-head">
+        <p class="kicker">Вопросы</p>
+        <h2>Коротко о главном.</h2>
       </div>
+      <div class="faq">
+        <details>
+          <summary>Это официальный клиент YouTube?</summary>
+          <p>Нет. M&nbsp;Tube — неофициальное приложение и не связано с Google LLC или YouTube. Все товарные знаки принадлежат их владельцам.</p>
+        </details>
+        <details>
+          <summary>Нужен ли отдельный VPN?</summary>
+          <p>Для автоподбора — нет: приложение само проверяет прокси. Если вы хотите использовать свой локальный SOCKS5, укажите его в разделе «Мой прокси».</p>
+        </details>
+        <details>
+          <summary>Почему приложение просит согласие?</summary>
+          <p>Это требование к прозрачной работе: до принятия Условий и Политики WebView и прокси не запускаются. Согласие можно отозвать, удалив данные приложения.</p>
+        </details>
+        <details>
+          <summary>Когда будет Google Play?</summary>
+          <p>AAB уже готов, публикация в Google Play ожидает настройки аккаунта разработчика. Пока APK обновляется по постоянной ссылке с этого сайта.</p>
+        </details>
+      </div>
+    </div>
+  </section>
 
-      <div class="install-card">
-        <p class="kicker">Связь</p>
-        <h3>Safarali Group</h3>
-        <p>Нашли ошибку, нужен другой сервер или есть пожелание? Напишите в Telegram — отвечаем быстро.</p>
-        <div class="legal-links">
-          <a href="https://t.me/Safaraligroup">@Safaraligroup</a>
-          <a href="apk/MTube-3.34.apk">APK 3.34</a>
-        </div>
-        <div class="notice">APK и AAB для Google Play готовятся из одного исходного кода. Публичная ссылка на APK всегда ведёт на последнюю версию.</div>
-      </div>
+  <section class="final-cta">
+    <h2>Осталось только открыть.</h2>
+    <p>Скачайте APK, примите документы и смотрите YouTube без лишней настройки.</p>
+    <a class="btn primary" href="apk/MTube-latest.apk">
+      Скачать M Tube 3.34
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5M5 20h14"/></svg>
+    </a>
+    <div class="final-meta">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg> Android 8.0+</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg> ~13,4 МБ</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg> подписанный APK</span>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <div class="footer-grid">
+<footer class="site-footer">
+  <div class="shell">
+    <div class="footer-top">
       <div>
-        <div class="footer-brand"><img src="assets/icon.png" alt="" width="30" height="30"> M Tube</div>
-        <div class="footer-note">YouTube через прокси. Версия 3.34 (56) · Android 8.0+ · Safarali Group.</div>
+        <div class="footer-brand">
+          <img src="assets/icon.png" alt="" width="33" height="33">
+          <div><b>M Tube</b><span>Safarali Group</span></div>
+        </div>
+        <p class="footer-note">YouTube через прокси на Android. Версия 3.34 (56).</p>
       </div>
-      <div class="footer-links">
-        <a href="#features">Возможности</a>
-        <a href="privacy.html">Конфиденциальность</a>
-        <a href="terms.html">Условия</a>
-        <a href="https://t.me/Safaraligroup">Telegram</a>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <b>Приложение</b>
+          <a href="#features">Возможности</a>
+          <a href="#install">Установка</a>
+          <a href="apk/MTube-latest.apk">Скачать APK</a>
+        </div>
+        <div class="footer-col">
+          <b>Документы</b>
+          <a href="privacy.html">Конфиденциальность</a>
+          <a href="terms.html">Условия</a>
+        </div>
+        <div class="footer-col">
+          <b>Связь</b>
+          <a href="https://t.me/Safaraligroup">Telegram</a>
+          <a href="#main">Наверх</a>
+        </div>
       </div>
     </div>
-    <div class="footer-note">M Tube не является официальным приложением YouTube и не связано с Google LLC. Все товарные знаки принадлежат их владельцам. Сайт использует только необходимые технические данные; для работы APK используются прокси-серверы и реклама Яндекса.</div>
+    <div class="footer-bottom">
+      <p>M Tube не является официальным приложением YouTube и не связано с Google LLC. Сайт использует только необходимые технические данные; для работы APK используются прокси-серверы и реклама Яндекса.</p>
+      <span class="footer-version">3.34 / 56</span>
+    </div>
   </div>
 </footer>
 </body>
